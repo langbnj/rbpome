@@ -1,19 +1,19 @@
 # rbpome
-Scripts used for our RNA-binding protein interactome (RBPome) study
+Scripts used for our RNA-binding protein interactome (RBPome) study (https://www.biorxiv.org/content/10.1101/2020.09.14.296160v2).
 
 ## Contents
 
-**analyses**: R scripts used to perform analyses and produce figures (mentioned in the folder names)
+**analyses**: R scripts used to perform analyses and produce figures (mentioned in the folder names).
 
-**include**: Perl utility functions and R MySQL connection functions
+**include**: Perl utility functions and R MySQL connection functions.
 
-**mysql_tables**: MySQL table structures (CREATE statements)
+**mysql_tables**: MySQL table structures (CREATE statements).
 
-**pipeline**: Perl scripts used to produce various figures (see "Note" within folders)
+**pipeline**: Perl scripts used to produce various figures (see "Note" within folders).
 
-**scripts**: Additional utility Perl scripts
+**scripts**: Additional utility Perl scripts.
 
-**update**: Perl scripts used to fill MySQL tables. "run.pl" is the main script in each folder
+**update**: Perl scripts used to fill MySQL tables. "run.pl" is the main script in each folder.
 
 For the Perl scripts, first run "download.pl" to download datasets, followed by "run.pl", the main script in each folder.
 
