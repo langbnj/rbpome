@@ -19,4 +19,4 @@ For the Perl scripts, first run "download.pl" to download datasets, followed by 
 
 ## Note
 
-Please don't hesitate to contact us for assistance with these scripts — they have grown historically as this analysis grew far bigger than originally envisioned and aren't polished, though hopefully they're commented well enough to follow them. Thank you!
+Please don't hesitate to contact me/us for assistance with these scripts — they have grown historically as this analysis grew far bigger than originally envisioned and aren't polished, though hopefully they're commented well enough to follow them. Thank you!
