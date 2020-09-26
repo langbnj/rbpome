@@ -1,17 +1,16 @@
 # rbpome
-RNA-binding protein interactome (RBPome) study
+Scripts used for our RNA-binding protein interactome (RBPome) study
 
 ## Contents
 
-analyses: R scripts used to produce various figures (mentioned in the folder names)
+**analyses**: R scripts used to produce various figures (mentioned in the folder names)
 
-include: Perl utility functions and R MySQL connection functions
+**include**: Perl utility functions and R MySQL connection functions
 
-mysql_tables: MySQL table structures (CREATE statements)
+**mysql_tables**: MySQL table structures (CREATE statements)
 
-pipeline: Perl scripts used to produce various figures (mentioned within folders, see "Note")
+**pipeline**: Perl scripts used to produce various figures (mentioned within folders, see "Note").  "run.pl" is the main script in each folder.
 
-update: Perl scripts used to fill MySQL tables
+**update**: Perl scripts used to fill MySQL tables. "run.pl" is the main script in each folder.
 
-
-#
+## 
