@@ -1,0 +1,693 @@
+pair_no	gene in Halo vector	gene in Luc vector	interaction	processed plate
+J103_01	csrp1	kif7	rbp_map	
+J103_02	kif16b_cter	ncbp3	rbp_map	
+J103_03	pura	kif3b	rbp_map	
+J103_04	TSNAX	Bicd2	rbp_map	
+J103_05	TSNAX	Kif6	rbp_map	
+J103_06	TSNAX	Kif2a	rbp_map	
+J103_07	gnl2	kif17v2	rbp_map	
+J103_08	Mrps31	Bicd2	rbp_map	
+J103_09	eif2s1	kif5a	rbp_map	
+J103_10	nudt21	klc4	rbp_map	
+J103_11	Rbm47	Kif3C	rbp_map	
+J103_12	ddx39	kif5a	rbp_map	
+J103_13	rpl27	kif7	rbp_map	
+J103_14	SRSF9	Kif6	rbp_map	
+J103_15	Imp3	Kif16b_cter	rbp_map	
+J103_16	eif3d	kif23_cter	rbp_map	
+J103_17	Rbm22	Bicd2	rbp_map	
+J103_18	Unkl	Bicd2	rbp_map	
+J103_19	SRSF2	kifc1	rbp_map	
+J103_20	rpl14	kif12	rbp_map	
+J103_21	Srfbp1	Kif20a_cter	rbp_map	
+J103_22	Prpf31	Bicd2	rbp_map	
+J103_23	nxf1	Klc2	rbp_map	
+J103_24	Nxf1	SRSF1	rbp_map	
+J103_25	purb	klc1	rbp_map	
+J103_26	Bicd2	Kifc3_nter	rbp_map	
+J103_27	ddx1	Kif23_cter	rbp_map	
+J103_28	dync1li2	mrps5	rbp_map	
+J103_29	kif20a_cter	nelfe	rbp_map	
+J103_30	kif20a_cter	rpl27	rbp_map	
+J103_31	kif3b	rsl1d1	rbp_map	
+J103_32	kifc1	pes1	rbp_map	
+J103_33	klc1	tubg1	rbp_map	
+J103_34	Fxr2	Kif2c	rbp_map	
+J103_35	Fxr2	dynlrb1	rbp_map	
+J103_36	Fxr2	srsf11	rbp_map	
+J103_37	Fxr2	Kif1b_nter	rbp_map	
+J103_38	nat10	kif5a	rbp_map	
+J103_39	lam	larget	rbp_map	
+J103_40	p53	larget	rbp_map	
+J115_1	nxf1	mapre3	rbp_map	
+J115_2	mapre3	nxf1	rbp_map	
+J115_3	nxf1	dynlt1c	rbp_map	
+J115_4	dynlt1c	nxf1	rbp_map	
+J115_5	nufip2	klc4	rbp_map	
+J115_6	klc4	nufip2	rbp_map	
+J115_7	nufip2	dynlt1c	rbp_map	
+J115_8	dynlt1c	nufip2	rbp_map	
+J115_9	nxf2	fmr1	rbp_map	
+J115_10	fmr1	nxf2	rbp_map	
+J115_11	nxf2	fxr2	rbp_map	
+J115_12	fxr2	nxf2	rbp_map	
+J115_13	nxf2	kif17v1	rbp_map	
+J115_14	kif17v1	nxf2	rbp_map	
+J115_15	nxf2	kif17v2	rbp_map	
+J115_16	kif17v2	nxf2	rbp_map	
+J115_17	nufip2	klc2	rbp_map	
+J115_18	klc2	nufip2	rbp_map	
+J115_19	nxf1	mapre1	rbp_map	
+J115_20	mapre1	nxf1	rbp_map	
+J115_21	p53	largeT	rbp_map	
+J115_22	lam	largeT	rbp_map	
+J104_06	Rbm47	Kif3C	rbp_map	
+J104_17	Klc2	nxf1	rbp_map	
+J104_03	tsnax	klc4	rbp_map	
+J104_09	Bicd2	tsnax	rbp_map	
+J104_07	srsf6	nxf1	rbp_map	
+J104_15	kifap3	pard6g	rbp_map	
+J104_21	pard6g	kif3c	rbp_map	
+J104_23	dynlt1c	fxr2	rbp_map	
+J104_24	pard6g_aa117_aa156	mapt	rbp_map	
+J104_25	dynlt1c	nudt21	rbp_map	
+J104_22	prkci	kif3c	rbp_map	
+J104_30	ndel1	pard6g_aa1_aa116	rbp_map	
+J104_13	dynlt1c	nufip2	rbp_map	
+J104_27	dynlt1c	klc4	rbp_map	
+J104_08	mrps5	dync1li2	rbp_map	
+J104_28	lactb	pard6g_aa117_aa156	rbp_map	
+J104_26	prkci_aa254_aa596	rbm6	rbp_map	
+J104_19	ywhae	klc2	rbp_map	
+J104_20	ywhae	klc4	rbp_map	
+J104_04	nufip2	nudt21	rbp_map	
+J104_36	slain2	nudt21	rbp_map	
+J104_05	akap8	mapre3	rbp_map	
+J104_02	kif1bx4_cter	ywhae	rbp_map	
+J104_16	kifap3	snrpa1	rbp_map	
+J104_14	kifap3	prpf31	rbp_map	
+J104_12	apc_cter	eif3d	rbp_map	
+J104_01	kif1bx4_cter	raly	rbp_map	
+J104_32	rbm14	apc_cter	rbp_map	
+J104_29	ndel1	acta1	rbp_map	
+J104_39	mapre3	fxr2	rbp_map	
+J104_40	p53	larget	rbp_map	
+J104_37	lam	larget	rbp_map	
+J104_38	larget	lam	rbp_map	
+J104_10	apc_cter	rps15	rbp_map	
+J104_11	apc_cter	sap18	rbp_map	
+J104_34	RBM6	MAPRE3	rbp_map	
+J104_18	klc2	rbbp4	rbp_map	
+J104_35	slain2	srsf5	rbp_map	
+J104_33	RBM6	MAPRE1	rbp_map	
+J104_31	PRPF3	MAPRE2	rbp_map	
+J104_41	kif1b_nter	nelfe	rbp_map	
+J104_42	nat10	kif5a	rbp_map	
+R_1	ALG13	BAG4	top_screen_hits	plate 3
+R_2	BAG4	BAG4	top_screen_hits	plate 3
+R_3	CPSF7	SNRPF	top_screen_hits	plate 2
+R_4	Eif3g	EIF4A3	top_screen_hits	plate 3
+R_5	PRC1	Sf3a3	top_screen_hits	plate 3
+R_6	BAG4	RBM42	top_screen_hits	plate 3
+R_7	PCBP3	SNRPA	top_screen_hits	plate 3
+R_8	ptbp1	Ptbp2	top_screen_hits	plate 3
+R_9	Cstf2t	Tsnax	top_screen_hits	plate 3
+R_10	CPSF7	EXOSC7	top_screen_hits	plate 2
+R_11	CPSF7	Rbm14	top_screen_hits	plate 2
+R_12	CPSF7	CPSF7	top_screen_hits	plate 2
+R_13	CLK1	SRSF8	top_screen_hits	plate 2
+R_14	Cstf2t	Pef1	top_screen_hits	plate 3
+R_15	Lsm3	SNRPF	top_screen_hits	plate 2
+R_16	larp4b	Rack1	top_screen_hits	plate 3
+R_17	Eif3g	Mrpl13	top_screen_hits	plate 3
+R_18	Mrps31	Sf3a3	top_screen_hits	plate 2
+R_19	PRR3	SNRPA	top_screen_hits	plate 3
+R_20	Mbnl1	Rbm38	top_screen_hits	plate 3
+R_21	Qk	Rbm38	top_screen_hits	plate 4
+R_22	ctbp1	Rbm22	top_screen_hits	plate 1
+R_23	Pspc1	Rbm22	top_screen_hits	plate 3
+R_24	Qk	Rbpms	top_screen_hits	plate 4
+R_25	BAG4	Pef1	top_screen_hits	plate 3
+R_26	cep55	Tsnax	top_screen_hits	plate 3
+R_27	msi2	Rbm38	top_screen_hits	plate 3
+R_28	CPSF7	Sf3a3	top_screen_hits	plate 3
+R_29	CPSF7	Pspc1	top_screen_hits	plate 3
+R_30	BAG4	SNRPA	top_screen_hits	plate 3
+R_31	CPSF7	Pef1	top_screen_hits	plate 3
+R_32	cep55	CPSF7	top_screen_hits	plate 3
+R_33	dmrtb1	Qk	top_screen_hits	plate 1
+R_34	Rbm14	SNRPA	top_screen_hits	plate 4
+R_35	Nufip2	Rack1	top_screen_hits	plate 1
+R_36	Rbm14	sfpq	top_screen_hits	plate 4
+R_37	EXOSC8	Rbm22	top_screen_hits	plate 3
+R_38	Pef1	Rbm14	top_screen_hits	plate 3
+R_39	Qk	Rbm47	top_screen_hits	plate 4
+R_40	PRPF38A	SRRM4	top_screen_hits	plate 4
+R_41	AP2M1	LUC7L2	mid_screen_hits	plate 3
+R_42	Eif3d	ZRSR2	mid_screen_hits	plate 2
+R_43	Mbnl1	msi2	mid_screen_hits	plate 3
+R_44	ST13	ST13	mid_screen_hits	plate 4
+R_45	MREG	Nufip2	mid_screen_hits	plate 3
+R_46	trnau1ap	dmrtb1	mid_screen_hits	plate 4
+R_47	SNRNP48	LUC7L2	mid_screen_hits	plate 4
+R_48	Srsf9	RBMX	mid_screen_hits	plate 2
+R_49	BCAS2	larp4	mid_screen_hits	plate 3
+R_50	Qk	Rbfox2_gt	mid_screen_hits	plate 4
+R_51	nxf1	Rbpms	mid_screen_hits	plate 2
+R_52	Ewsr1	Hnrnph2	mid_screen_hits	plate 3
+R_53	trnau1ap	Qk	mid_screen_hits	plate 4
+R_54	EXOSC5	EXOSC5	mid_screen_hits	plate 3
+R_55	ddx39ab	SNRPA	mid_screen_hits	plate 3
+R_56	Pef1	Sf1	mid_screen_hits	plate 3
+R_57	Tia1	Celf1	mid_screen_hits	plate 4
+R_58	FRG1	FRG1	mid_screen_hits	plate 2
+R_59	CPEB2	CPEB2	mid_screen_hits	plate 3
+R_60	prpf31	CPSF7	mid_screen_hits	plate 2
+R_61	Qk	PRRC2B	low_screen_hits	plate 4
+R_62	nxf1	Srsf5	low_screen_hits	plate 2
+R_63	khdrbs2	Pcbp1	low_screen_hits	plate 4
+R_64	PRR3	SRSF12	low_screen_hits	plate 4
+R_65	RPL34	ASPM	low_screen_hits	plate 4
+R_66	TXNL4A	SMARCB1	low_screen_hits	plate 4
+R_67	LSM5	trnau1ap	low_screen_hits	plate 4
+R_68	Zc3h10	ddx17	low_screen_hits	plate 4
+R_69	TOP3B	CLK2	low_screen_hits	plate 4
+R_70	rbm10	Polrmt	low_screen_hits	plate 4
+R_71	Dcx	ddx17	low_screen_hits	plate 4
+R_72	USP10	SQSTM1	low_screen_hits	plate 4
+R_73	GTSE1	EHMT2	low_screen_hits	plate 4
+R_74	PRPF6	D2Wsu81e	low_screen_hits	plate 4
+R_75	USP10	NGRN	low_screen_hits	plate 4
+R_76	Mrpl11	Cpsf6	low_screen_hits	plate 4
+R_77	YTHDF3	SSBP1	low_screen_hits	plate 2
+R_78	USP10	EXOSC7	low_screen_hits	plate 4
+R_79	ANKHD1	rbfox2_orf	low_screen_hits	plate 4
+R_80	ZNF830	rbm7	low_screen_hits	plate 4
+R_81	nxf1	Nudt21	high_interest	plate 1
+R_82	Nudt21	nxf1	high_interest	plate 1
+R_83	Dynll1	larp4	high_interest	plate 1
+R_84	larp4	Dynll1	high_interest	plate 4
+R_85	Klc4	Mkrn1	high_interest	plate 2
+R_86	Mkrn1	Klc4	high_interest	plate 4
+R_87	Fxr1	Nufip2	high_interest	plate 4
+R_88	Nufip2	Fxr1	high_interest	plate 1
+R_89	fxr2	Tsnax	high_interest	plate 1
+R_90	Tsnax	fxr2	high_interest	plate 1
+R_91	fxr2	x2700060e02rik	high_interest	plate 1
+R_92	x2700060e02rik	fxr2	high_interest	plate 4
+R_93	nxf1	bicd2	high_interest	plate 1
+R_94	bicd2	nxf1	high_interest	plate 1
+R_95	nxf1	Klc4	high_interest	plate 1
+R_96	Klc4	nxf1	high_interest	plate 1
+R_97	ccdc9	HOOK1	high_interest	plate 4
+R_98	HOOK1	ccdc9	high_interest	plate 4
+R_99	nxf1	Tsnax	high_interest	plate 1
+R_100	Tsnax	nxf1	high_interest	plate 1
+R_101	APC_nter	Nufip2	high_interest	plate 4
+R_102	Nufip2	APC_nter	high_interest	plate 1
+R_103	Klc4	x2700060e02rik	high_interest	plate 1
+R_104	x2700060e02rik	Klc4	high_interest	plate 4
+R_105	nxf1	Ndel1	high_interest	plate 1
+R_106	Ndel1	nxf1	high_interest	plate 4
+R_107	ccdc9	Mapre3	high_interest	plate 4
+R_108	Mapre3	ccdc9	high_interest	plate 1
+R_109	Klc4	Nufip2	high_interest	plate 1
+R_110	Nufip2	Klc4	high_interest	plate 1
+R_111	nxf1	x2700060e02rik	high_interest	plate 1
+R_112	x2700060e02rik	nxf1	high_interest	plate 4
+R_113	nxf1	purb	high_interest	plate 2
+R_114	purb	nxf1	high_interest	plate 1
+R_115	x2700060e02rik	Tsnax	high_interest	plate 4
+R_116	Tsnax	x2700060e02rik	high_interest	plate 1
+R_117	bicd2	Tsnax	high_interest	plate 1
+R_118	Tsnax	bicd2	high_interest	plate 1
+R_119	Apc_cter	Nufip2	high_interest	plate 1
+R_120	Nufip2	Apc_cter	high_interest	plate 1
+R_121	Rbm22	xrn2	ben_screen_top	plate 2
+R_122	ppig	Sf3b4	ben_screen_top	plate 3
+R_123	Ddx3x	rbm15	ben_screen_top	plate 4
+R_124	Rps3	Sf3b4	ben_screen_top	plate 4
+R_125	Sf3b4	Utp3	ben_screen_top	plate 4
+R_126	Ewsr1	Fastkd2	ben_screen_top	plate 4
+R_127	Sf3a3	Utp3	ben_screen_top	plate 5
+R_128	PRPF4	Sf3b4	ben_screen_top	plate 5
+R_129	Igf2bp2	Pcbp1	ben_screen_top	plate 5
+R_130	Cstf2t	Nono	ben_screen_top	plate 3
+R_131	Cstf2t	Ewsr1	ben_screen_top	plate 3
+R_132	Cstf2t	Gtf2f1	ben_screen_top	plate 3
+R_133	rbm15	srsf1	ben_screen_top	plate 5
+R_134	Sf3b4	xrn2	ben_screen_top	plate 5
+R_135	ptbp1	QKI	ben_screen_top	plate 5
+R_136	Rbm22	Sf3a3	ben_screen_top	plate 2
+R_137	ptbp1	U2af2	ben_screen_top	plate 5
+R_138	fxr2	Utp3	ben_screen_top	plate 2
+R_139	fxr2	Sf3b4	ben_screen_top	plate 2
+R_140	Pcbp1	Rps3	ben_screen_top	plate 5
+R_141	sugp2	Utp18	ben_screen_bottom	plate 5
+R_142	Gnl3	QKI	ben_screen_bottom	plate 5
+R_143	Igf2bp3	nsun2	ben_screen_bottom	plate 5
+R_144	Ilf3	nip7	ben_screen_bottom	plate 5
+R_145	Serbp1	sugp2	ben_screen_bottom	plate 5
+R_146	Cpsf6	Igf2bp3	ben_screen_bottom	plate 5
+R_147	Cstf2t	nip7	ben_screen_bottom	plate 3
+R_148	SBDS	Sf3b4	ben_screen_bottom	plate 5
+R_149	npm1	QKI	ben_screen_bottom	plate 3
+R_150	sugp2	ZC3H8	ben_screen_bottom	plate 5
+R_151	Ewsr1	nsun2	ben_screen_bottom	plate 5
+R_152	QKI	Ywhag	ben_screen_bottom	plate 5
+R_153	Hnrnpk	nsun2	ben_screen_bottom	plate 5
+R_154	Cpsf6	Ilf3	ben_screen_bottom	plate 5
+R_155	npm1	Sf3b4	ben_screen_bottom	plate 3
+R_156	APOBEC3C	sfpq	ben_screen_bottom	plate 5
+R_157	Cpsf6	sfpq	ben_screen_bottom	plate 5
+R_158	nip7	QKI	ben_screen_bottom	plate 5
+R_159	sfpq	u2af1	ben_screen_bottom	plate 5
+R_160	Ewsr1	Hnrnpa1	ben_screen_bottom	plate 5
+R_161	EFTUD2	Utp3	ben_resample_top	plate 5
+R_162	Cstf2t	fam120a	ben_resample_top	plate 3
+R_163	Gtf2f1	PRPF4	ben_resample_top	plate 5
+R_164	ppig	Sf3a3	ben_resample_top	plate 3
+R_165	EFTUD2	Sf3b4	ben_resample_top	plate 5
+R_166	BUD13	EFTUD2	ben_resample_top	plate 5
+R_167	BUD13	UCHL5	ben_resample_top	plate 5
+R_168	BUD13	Utp3	ben_resample_top	plate 5
+R_169	BUD13	ppig	ben_resample_top	plate 5
+R_170	EFTUD2	ppig	ben_resample_top	plate 5
+R_171	Sf3a3	Sf3b4	ben_resample_top	plate 5
+R_172	EFTUD2	Sf3a3	ben_resample_top	plate 5
+R_173	BUD13	Sf3b4	ben_resample_top	plate 5
+R_174	xrn2	PRPF4	ben_resample_top	plate 5
+R_175	Ewsr1	Nono	ben_resample_top	plate 5
+R_176	ppig	UCHL5	ben_resample_top	plate 3
+R_177	BUD13	Sf3a3	ben_resample_top	plate 5
+R_178	Ddx3x	Rps3	ben_resample_top	plate 5
+R_179	EFTUD2	Rbm22	ben_resample_top	plate 7
+R_180	fam120a	Gtf2f1	ben_resample_top	plate 7
+R_181	nsun2	Srsf9	ben_resample_bottom	plate 7
+R_182	nip7	SAFB2	ben_resample_bottom	plate 7
+R_183	Fubp3	SBDS	ben_resample_bottom	plate 7
+R_184	SAFB2	SBDS	ben_resample_bottom	plate 7
+R_185	SAFB2	xpo5	ben_resample_bottom	plate 6
+R_186	Khdrbs1	WDR3	ben_resample_bottom	plate 6
+R_187	SBDS	sfpq	ben_resample_bottom	plate 6
+R_188	nsun2	Taf15	ben_resample_bottom	plate 6
+R_189	Hnrnpc	SBDS	ben_resample_bottom	plate 6
+R_190	Igf2bp3	Taf15	ben_resample_bottom	plate 6
+R_191	ppig	SBDS	ben_resample_bottom	plate 3
+R_192	SAFB2	sugp2	ben_resample_bottom	plate 6
+R_193	SBDS	Stau2	ben_resample_bottom	plate 6
+R_194	QKI	SBDS	ben_resample_bottom	plate 6
+R_195	Hnrnpa1	Srsf9	ben_resample_bottom	plate 6
+R_196	RBM5	SBDS	ben_resample_bottom	plate 2
+R_197	Serbp1	sfpq	ben_resample_bottom	plate 6
+R_198	nip7	sfpq	ben_resample_bottom	plate 6
+R_199	SBDS	sugp2	ben_resample_bottom	plate 6
+R_200	Fxr1	sfpq	ben_resample_bottom	plate 6
+R_201	fez2	nxf1	high_interest	plate 6
+R_202	nxf1	fez2	high_interest	plate 2
+R_203	fez2	klc4	high_interest	plate 6
+R_204	klc4	fez2	high_interest	plate 2
+R_205	fez2	x2700060e02rik	high_interest	plate 6
+R_206	x2700060e02rik	fez2	high_interest	plate 6
+R_207	fez2	tsnax	high_interest	plate 6
+R_208	tsnax	fez2	high_interest	plate 2
+R_209	thoc1	klc4	high_interest	plate 6
+R_210	klc4	thoc1	high_interest	plate 2
+R_211	bcas2	tsnax	high_interest	plate 6
+R_212	tsnax	bcas2	high_interest	plate 2
+R_213	bcas2	x2700060e02rik	high_interest	plate 6
+R_214	x2700060e02rik	bcas2	high_interest	plate 6
+R_215	bcas2	klc4	high_interest	plate 6
+R_216	klc4	bcas2	high_interest	plate 2
+R_217	bcas2	kif1b_nter	high_interest	plate 6
+R_218	kif1b_nter	bcas2	high_interest	plate 2
+R_219	bcas2	myo10	high_interest	plate 6
+R_220	myo10	bcas2	high_interest	plate 6
+R_221	eif4a3	ccdc9	high_interest	plate 6
+R_222	ccdc9	eif4a3	high_interest	plate 6
+R_223	kif1c_cter	eif4a3	high_interest	plate 6
+R_224	eif4a3	kif1c_cter	high_interest	plate 6
+R_225	eif3g	nxf1	high_interest	plate 6
+R_226	nxf1	eif3g	high_interest	plate 2
+R_227	eif3g	klc4	high_interest	plate 6
+R_228	klc4	eif3g	high_interest	plate 2
+R_229	eif3g	dynlt1c	high_interest	plate 6
+R_230	dynlt1c	eif3g	high_interest	plate 2
+R_231	eif4b	pura	high_interest	plate 6
+R_232	pura	eif4b	high_interest	plate 2
+R_233	eif4a3	tsnax	high_interest	plate 6
+R_234	tsnax	eif4a3	high_interest	plate 2
+R_235	nxf1	kif3b	high_interest	plate 2
+R_236	kif3b	nxf1	high_interest	plate 2
+R_237	fez2	kif3b	high_interest	plate 6
+R_238	kif3b	fez2	high_interest	plate 2
+R_239	mapre3	clip2	high_interest	plate 2
+R_240	clip2	mapre3	high_interest	plate 6
+R_241	clasp2	rps8	high_interest	plate 6
+R_242	rps8	clasp2	high_interest	plate 6
+R_243	clasp2	rpl9	high_interest	plate 6
+R_244	rpl9	clasp2	high_interest	plate 6
+R_245	tsnax	klc1	high_interest	plate 2
+R_246	klc1	tsnax	high_interest	plate 2
+R_247	srsf3	fxr2	high_interest	plate 6
+R_248	fxr2	srsf3	high_interest	plate 2
+R_249	nxf1	sf3b2	high_interest	plate 2
+R_250	sf3b2	nxf1	high_interest	plate 6
+R_251	nxf1	rbmx	high_interest	plate 2
+R_252	rbmx	nxf1	high_interest	plate 6
+R_253	rbm14	nxf1	high_interest	plate 6
+R_254	nxf1	rbm14	high_interest	plate 2
+R_255	nxf1	ddx17	high_interest	plate 2
+R_256	ddx17	nxf1	high_interest	plate 7
+R_257	Lam	LargeT	control	plate 2
+R_258	LargeT	Lam	control	plate 2
+R_259	p53	LargeT	control	plate 2
+R_260	LargeT	p53	control	plate 2
+R_261	mkrn1	fmr1	high_interest	plate 7
+R_262	fmr1	mkrn1	high_interest	plate 7
+R_263	mkrn1	rps5	high_interest	plate 7
+R_264	rps5	mkrn1	high_interest	plate 7
+R_265	mkrn1	rps18	high_interest	plate 7
+R_266	rps18	mkrn1	high_interest	plate 7
+R_267	mkrn1	rps4x	high_interest	plate 7
+R_268	rps4x	mkrn1	high_interest	plate 7
+R_269	mkrn1	pcbp1	high_interest	plate 7
+R_270	pcbp1	mkrn1	high_interest	plate 7
+R_271	fmr1	kif3a	high_interest	plate 7
+R_272	kif3a	fmr1	high_interest	plate 7
+R_273	fmr1	kif3b	high_interest	plate 7
+R_274	kif3b	fmr1	high_interest	plate 7
+R_275	fmr1	kif3c	high_interest	plate 7
+R_276	kif3c	fmr1	high_interest	plate 7
+R_277	fmr1	klc2	high_interest	plate 7
+R_278	klc2	fmr1	high_interest	plate 7
+R_279	fmr1	Kif1bx4_cter	high_interest	plate 7
+R_280	Kif1bx4_cter	fmr1	high_interest	plate 7
+R_281	kif5a	fmr1	high_interest	plate 7
+R_282	fmr1	kif5a	high_interest	plate 7
+R_283	Lam	LargeT	control	plate 3
+R_284	LargeT	Lam	control	plate 3
+R_285	p53	LargeT	control	plate 3
+R_286	LargeT	p53	control	plate 3
+R_287	fxr2	Klc4	high_interest	plate 7
+R_288	Klc4	fxr2	high_interest	plate 7
+R_289	Fmr1	Nufip2	high_interest	plate 5
+R_290	Nufip2	Fmr1	high_interest	plate 5
+R_291	G3bp1	Nufip2	high_interest	plate 5
+R_292	Nufip2	G3bp1	high_interest	plate 5
+R_293	G3bp2	Nufip2	high_interest	plate 5
+R_294	Nufip2	G3bp2	high_interest	plate 5
+R_295	x2700060e02rik	bicd2	high_interest	plate 7
+R_296	bicd2	x2700060e02rik	high_interest	plate 7
+R_297	Nufip2	Kif3a	high_interest	plate 7
+R_298	Kif3a	Nufip2	high_interest	plate 7
+R_299	Lam	LargeT	control	plate 4
+R_300	p53	LargeT	control	plate 4
+R_301	Lam	LargeT	control	plate 5
+R_302	p53	LargeT	control	plate 5
+R_303	Lam	LargeT	control	plate 6
+R_304	p53	LargeT	control	plate 6
+R_305	Lam	LargeT	control	plate 7
+R_306	p53	LargeT	control	plate 7
+R_307	Kifap3	DCTN1	high_interest	plate 7
+R_308	DCTN1	Kifap3	high_interest	plate 7
+R_309	Dic2	Klc2	high_interest	plate 7
+R_310	Klc2	Dic2	high_interest	plate 7
+R_311	Dic1a	Klc2	high_interest	plate 7
+R_312	Klc2	Dic1a	high_interest	plate 7
+R_313	bicd2	kif3a	high_interest	plate 7
+R_314	kif3a	bicd2	high_interest	plate 7
+R_315	Dic1a	Kif5a	high_interest	plate 7
+R_316	Kif5a	Dic1a	high_interest	plate 7
+R_317	bicd2	klc4	high_interest	plate 7
+X_000	APOBEC3C	LARP4	random_pairs_non_screen_hits	plate 0
+X_000	APOBEC3C	PCBP1	random_pairs_non_screen_hits	plate 0
+X_000	APOBEC3C	QKI	random_pairs_non_screen_hits	plate 0
+X_000	APOBEC3C	SFPQ	random_pairs_non_screen_hits	plate 0
+X_000	CPEB4	CPSF6	random_pairs_non_screen_hits	plate 0
+X_000	CPEB4	DDX42	random_pairs_non_screen_hits	plate 0
+X_000	CPEB4	RBM22	random_pairs_non_screen_hits	plate 0
+X_000	CPEB4	SFPQ	random_pairs_non_screen_hits	plate 0
+X_000	CPSF6	CPEB4	random_pairs_non_screen_hits	plate 0
+X_000	CPSF6	DDX21	random_pairs_non_screen_hits	plate 0
+X_000	CPSF6	EWSR1	random_pairs_non_screen_hits	plate 0
+X_000	CPSF6	FMR1	random_pairs_non_screen_hits	plate 0
+X_000	CPSF6	FUBP3	random_pairs_non_screen_hits	plate 0
+X_000	CPSF6	PPIL4	random_pairs_non_screen_hits	plate 0
+X_000	CPSF6	QKI	random_pairs_non_screen_hits	plate 0
+X_000	CPSF6	RBM5	random_pairs_non_screen_hits	plate 0
+X_000	CPSF6	TAF15	random_pairs_non_screen_hits	plate 0
+X_000	CPSF6	U2AF1	random_pairs_non_screen_hits	plate 0
+X_000	CSTF2T	FXR1	random_pairs_non_screen_hits	plate 0
+X_000	CSTF2T	NONO	random_pairs_non_screen_hits	plate 0
+X_000	CSTF2T	QKI	random_pairs_non_screen_hits	plate 0
+X_000	CSTF2T	SUPV3L1	random_pairs_non_screen_hits	plate 0
+X_000	CSTF2T	TIA1	random_pairs_non_screen_hits	plate 0
+X_000	CSTF2T	YWHAG	random_pairs_non_screen_hits	plate 0
+X_000	DDX21	CPSF6	random_pairs_non_screen_hits	plate 0
+X_000	DDX21	FUBP3	random_pairs_non_screen_hits	plate 0
+X_000	DDX21	NONO	random_pairs_non_screen_hits	plate 0
+X_000	DDX21	U2AF1	random_pairs_non_screen_hits	plate 0
+X_000	DDX21	WDR3	random_pairs_non_screen_hits	plate 0
+X_000	DDX42	CPEB4	random_pairs_non_screen_hits	plate 0
+X_000	DDX42	FKBP4	random_pairs_non_screen_hits	plate 0
+X_000	DDX42	FXR1	random_pairs_non_screen_hits	plate 0
+X_000	DDX42	TAF15	random_pairs_non_screen_hits	plate 0
+X_000	EWSR1	CPSF6	random_pairs_non_screen_hits	plate 0
+X_000	EWSR1	IGF2BP1	random_pairs_non_screen_hits	plate 0
+X_000	EWSR1	IGF2BP2	random_pairs_non_screen_hits	plate 0
+X_000	EWSR1	IGF2BP3	random_pairs_non_screen_hits	plate 0
+X_000	EWSR1	NKRF	random_pairs_non_screen_hits	plate 0
+X_000	EWSR1	SF3B4	random_pairs_non_screen_hits	plate 0
+X_000	EWSR1	WDR3	random_pairs_non_screen_hits	plate 0
+X_000	FASTKD2	QKI	random_pairs_non_screen_hits	plate 0
+X_000	FASTKD2	SLBP	random_pairs_non_screen_hits	plate 0
+X_000	FKBP4	DDX42	random_pairs_non_screen_hits	plate 0
+X_000	FKBP4	SLBP	random_pairs_non_screen_hits	plate 0
+X_000	FKBP4	SRSF9	random_pairs_non_screen_hits	plate 0
+X_000	FKBP4	SUPV3L1	random_pairs_non_screen_hits	plate 0
+X_000	FKBP4	U2AF2	random_pairs_non_screen_hits	plate 0
+X_000	FMR1	CPSF6	random_pairs_non_screen_hits	plate 0
+X_000	FMR1	GTF2F1	random_pairs_non_screen_hits	plate 0
+X_000	FMR1	RBFOX2	random_pairs_non_screen_hits	plate 0
+X_000	FMR1	RBM5	random_pairs_non_screen_hits	plate 0
+X_000	FUBP3	CPSF6	random_pairs_non_screen_hits	plate 0
+X_000	FUBP3	DDX21	random_pairs_non_screen_hits	plate 0
+X_000	FUBP3	FXR1	random_pairs_non_screen_hits	plate 0
+X_000	FUBP3	NIP7	random_pairs_non_screen_hits	plate 0
+X_000	FUBP3	RBM5	random_pairs_non_screen_hits	plate 0
+X_000	FUBP3	SRSF7	random_pairs_non_screen_hits	plate 0
+X_000	FUBP3	STAU2	random_pairs_non_screen_hits	plate 0
+X_000	FXR1	CSTF2T	random_pairs_non_screen_hits	plate 0
+X_000	FXR1	DDX42	random_pairs_non_screen_hits	plate 0
+X_000	FXR1	FUBP3	random_pairs_non_screen_hits	plate 0
+X_000	FXR1	HNRNPA1	random_pairs_non_screen_hits	plate 0
+X_000	FXR1	LARP4	random_pairs_non_screen_hits	plate 0
+X_000	FXR1	RBFOX2	random_pairs_non_screen_hits	plate 0
+X_000	FXR1	SF3B4	random_pairs_non_screen_hits	plate 0
+X_000	FXR1	TRA2A	random_pairs_non_screen_hits	plate 0
+X_000	FXR2	PCBP1	random_pairs_non_screen_hits	plate 0
+X_000	FXR2	SF3B4	random_pairs_non_screen_hits	plate 0
+X_000	FXR2	SFPQ	random_pairs_non_screen_hits	plate 0
+X_000	FXR2	SUPV3L1	random_pairs_non_screen_hits	plate 0
+X_000	GTF2F1	FMR1	random_pairs_non_screen_hits	plate 0
+X_000	GTF2F1	PPIL4	random_pairs_non_screen_hits	plate 0
+X_000	GTF2F1	RBFOX2	random_pairs_non_screen_hits	plate 0
+X_000	GTF2F1	RBM5	random_pairs_non_screen_hits	plate 0
+X_000	GTF2F1	SRSF7	random_pairs_non_screen_hits	plate 0
+X_000	GTF2F1	U2AF1	random_pairs_non_screen_hits	plate 0
+X_000	HNRNPA1	FXR1	random_pairs_non_screen_hits	plate 0
+X_000	HNRNPA1	HNRNPK	random_pairs_non_screen_hits	plate 0
+X_000	HNRNPA1	IGF2BP3	random_pairs_non_screen_hits	plate 0
+X_000	HNRNPA1	SFPQ	random_pairs_non_screen_hits	plate 0
+X_000	HNRNPA1	TARDBP	random_pairs_non_screen_hits	plate 0
+X_000	HNRNPK	HNRNPA1	random_pairs_non_screen_hits	plate 0
+X_000	HNRNPK	NKRF	random_pairs_non_screen_hits	plate 0
+X_000	HNRNPK	NONO	random_pairs_non_screen_hits	plate 0
+X_000	HNRNPU	QKI	random_pairs_non_screen_hits	plate 0
+X_000	HNRNPU	RBM15	random_pairs_non_screen_hits	plate 0
+X_000	HNRNPU	STAU2	random_pairs_non_screen_hits	plate 0
+X_000	IGF2BP1	EWSR1	random_pairs_non_screen_hits	plate 0
+X_000	IGF2BP1	PCBP2	random_pairs_non_screen_hits	plate 0
+X_000	IGF2BP1	RBM5	random_pairs_non_screen_hits	plate 0
+X_000	IGF2BP2	EWSR1	random_pairs_non_screen_hits	plate 0
+X_000	IGF2BP2	NIP7	random_pairs_non_screen_hits	plate 0
+X_000	IGF2BP2	RBFOX2	random_pairs_non_screen_hits	plate 0
+X_000	IGF2BP2	RBM5	random_pairs_non_screen_hits	plate 0
+X_000	IGF2BP2	STAU2	random_pairs_non_screen_hits	plate 0
+X_000	IGF2BP2	TARDBP	random_pairs_non_screen_hits	plate 0
+X_000	IGF2BP3	EWSR1	random_pairs_non_screen_hits	plate 0
+X_000	IGF2BP3	HNRNPA1	random_pairs_non_screen_hits	plate 0
+X_000	IGF2BP3	RBM5	random_pairs_non_screen_hits	plate 0
+X_000	IGF2BP3	RBM22	random_pairs_non_screen_hits	plate 0
+X_000	ILF3	NKRF	random_pairs_non_screen_hits	plate 0
+X_000	ILF3	PCBP1	random_pairs_non_screen_hits	plate 0
+X_000	ILF3	RBM15	random_pairs_non_screen_hits	plate 0
+X_000	ILF3	TAF15	random_pairs_non_screen_hits	plate 0
+X_000	LARP4	APOBEC3C	random_pairs_non_screen_hits	plate 0
+X_000	LARP4	FXR1	random_pairs_non_screen_hits	plate 0
+X_000	LARP4	NIP7	random_pairs_non_screen_hits	plate 0
+X_000	LARP4	PTBP1	random_pairs_non_screen_hits	plate 0
+X_000	LARP4	STAU2	random_pairs_non_screen_hits	plate 0
+X_000	LARP4	TIA1	random_pairs_non_screen_hits	plate 0
+X_000	NIP7	FUBP3	random_pairs_non_screen_hits	plate 0
+X_000	NIP7	IGF2BP2	random_pairs_non_screen_hits	plate 0
+X_000	NIP7	LARP4	random_pairs_non_screen_hits	plate 0
+X_000	NIP7	RBFOX2	random_pairs_non_screen_hits	plate 0
+X_000	NIP7	SFPQ	random_pairs_non_screen_hits	plate 0
+X_000	NIP7	SRSF9	random_pairs_non_screen_hits	plate 0
+X_000	NIP7	U2AF2	random_pairs_non_screen_hits	plate 0
+X_000	NKRF	EWSR1	random_pairs_non_screen_hits	plate 0
+X_000	NKRF	HNRNPK	random_pairs_non_screen_hits	plate 0
+X_000	NKRF	ILF3	random_pairs_non_screen_hits	plate 0
+X_000	NKRF	PCBP2	random_pairs_non_screen_hits	plate 0
+X_000	NKRF	WDR3	random_pairs_non_screen_hits	plate 0
+X_000	NONO	DDX21	random_pairs_non_screen_hits	plate 0
+X_000	NONO	HNRNPK	random_pairs_non_screen_hits	plate 0
+X_000	NONO	RBM22	random_pairs_non_screen_hits	plate 0
+X_000	PCBP1	FXR2	random_pairs_non_screen_hits	plate 0
+X_000	PCBP1	ILF3	random_pairs_non_screen_hits	plate 0
+X_000	PCBP1	PTBP1	random_pairs_non_screen_hits	plate 0
+X_000	PCBP1	PUM2	random_pairs_non_screen_hits	plate 0
+X_000	PCBP1	TAF15	random_pairs_non_screen_hits	plate 0
+X_000	PCBP1	TRA2A	random_pairs_non_screen_hits	plate 0
+X_000	PCBP2	IGF2BP1	random_pairs_non_screen_hits	plate 0
+X_000	PCBP2	NKRF	random_pairs_non_screen_hits	plate 0
+X_000	PCBP2	PTBP1	random_pairs_non_screen_hits	plate 0
+X_000	PCBP2	RBM22	random_pairs_non_screen_hits	plate 0
+X_000	PCBP2	SF3B4	random_pairs_non_screen_hits	plate 0
+X_000	PCBP2	TIA1	random_pairs_non_screen_hits	plate 0
+X_000	PPIL4	CPSF6	random_pairs_non_screen_hits	plate 0
+X_000	PPIL4	GTF2F1	random_pairs_non_screen_hits	plate 0
+X_000	PPIL4	STAU2	random_pairs_non_screen_hits	plate 0
+X_000	PPIL4	U2AF2	random_pairs_non_screen_hits	plate 0
+X_000	PTBP1	LARP4	random_pairs_non_screen_hits	plate 0
+X_000	PTBP1	PCBP2	random_pairs_non_screen_hits	plate 0
+X_000	PTBP1	PUM2	random_pairs_non_screen_hits	plate 0
+X_000	PTBP1	SRSF1	random_pairs_non_screen_hits	plate 0
+X_000	PTBP1	SUPV3L1	random_pairs_non_screen_hits	plate 0
+X_000	PUM2	PCBP1	random_pairs_non_screen_hits	plate 0
+X_000	PUM2	PTBP1	random_pairs_non_screen_hits	plate 0
+X_000	QKI	APOBEC3C	random_pairs_non_screen_hits	plate 0
+X_000	QKI	CPSF6	random_pairs_non_screen_hits	plate 0
+X_000	QKI	CSTF2T	random_pairs_non_screen_hits	plate 0
+X_000	QKI	FASTKD2	random_pairs_non_screen_hits	plate 0
+X_000	QKI	HNRNPU	random_pairs_non_screen_hits	plate 0
+X_000	QKI	NIP7	random_pairs_non_screen_hits	plate 0
+X_000	QKI	PTBP1	random_pairs_non_screen_hits	plate 0
+X_000	RBFOX2	FMR1	random_pairs_non_screen_hits	plate 0
+X_000	RBFOX2	FXR1	random_pairs_non_screen_hits	plate 0
+X_000	RBFOX2	GTF2F1	random_pairs_non_screen_hits	plate 0
+X_000	RBFOX2	NIP7	random_pairs_non_screen_hits	plate 0
+X_000	RBFOX2	PPIL4	random_pairs_non_screen_hits	plate 0
+X_000	RBFOX2	SRSF7	random_pairs_non_screen_hits	plate 0
+X_000	RBM5	CPSF6	random_pairs_non_screen_hits	plate 0
+X_000	RBM5	FMR1	random_pairs_non_screen_hits	plate 0
+X_000	RBM5	FUBP3	random_pairs_non_screen_hits	plate 0
+X_000	RBM5	GTF2F1	random_pairs_non_screen_hits	plate 0
+X_000	RBM5	IGF2BP1	random_pairs_non_screen_hits	plate 0
+X_000	RBM5	IGF2BP2	random_pairs_non_screen_hits	plate 0
+X_000	RBM5	IGF2BP3	random_pairs_non_screen_hits	plate 0
+X_000	RBM5	SF3B4	random_pairs_non_screen_hits	plate 0
+X_000	RBM5	U2AF2	random_pairs_non_screen_hits	plate 0
+X_000	RBM15	HNRNPU	random_pairs_non_screen_hits	plate 0
+X_000	RBM15	ILF3	random_pairs_non_screen_hits	plate 0
+X_000	RBM15	SLBP	random_pairs_non_screen_hits	plate 0
+X_000	RBM22	CPEB4	random_pairs_non_screen_hits	plate 0
+X_000	RBM22	IGF2BP3	random_pairs_non_screen_hits	plate 0
+X_000	RBM22	NONO	random_pairs_non_screen_hits	plate 0
+X_000	RBM22	PCBP2	random_pairs_non_screen_hits	plate 0
+X_000	RBM22	SRSF1	random_pairs_non_screen_hits	plate 0
+X_000	RBM22	SUPV3L1	random_pairs_non_screen_hits	plate 0
+X_000	RBM22	TIA1	random_pairs_non_screen_hits	plate 0
+X_000	RBM22	U2AF1	random_pairs_non_screen_hits	plate 0
+X_000	SF3B4	EWSR1	random_pairs_non_screen_hits	plate 0
+X_000	SF3B4	FXR1	random_pairs_non_screen_hits	plate 0
+X_000	SF3B4	FXR2	random_pairs_non_screen_hits	plate 0
+X_000	SF3B4	PCBP2	random_pairs_non_screen_hits	plate 0
+X_000	SF3B4	RBM5	random_pairs_non_screen_hits	plate 0
+X_000	SF3B4	STAU2	random_pairs_non_screen_hits	plate 0
+X_000	SF3B4	TARDBP	random_pairs_non_screen_hits	plate 0
+X_000	SF3B4	TIA1	random_pairs_non_screen_hits	plate 0
+X_000	SFPQ	APOBEC3C	random_pairs_non_screen_hits	plate 0
+X_000	SFPQ	CPEB4	random_pairs_non_screen_hits	plate 0
+X_000	SFPQ	FXR2	random_pairs_non_screen_hits	plate 0
+X_000	SFPQ	HNRNPA1	random_pairs_non_screen_hits	plate 0
+X_000	SFPQ	NIP7	random_pairs_non_screen_hits	plate 0
+X_000	SFPQ	SRSF9	random_pairs_non_screen_hits	plate 0
+X_000	SFPQ	TARDBP	random_pairs_non_screen_hits	plate 0
+X_000	SFPQ	TRA2A	random_pairs_non_screen_hits	plate 0
+X_000	SLBP	FASTKD2	random_pairs_non_screen_hits	plate 0
+X_000	SLBP	FKBP4	random_pairs_non_screen_hits	plate 0
+X_000	SLBP	RBM15	random_pairs_non_screen_hits	plate 0
+X_000	SRSF1	PTBP1	random_pairs_non_screen_hits	plate 0
+X_000	SRSF1	RBM22	random_pairs_non_screen_hits	plate 0
+X_000	SRSF1	TIA1	random_pairs_non_screen_hits	plate 0
+X_000	SRSF7	FUBP3	random_pairs_non_screen_hits	plate 0
+X_000	SRSF7	GTF2F1	random_pairs_non_screen_hits	plate 0
+X_000	SRSF7	RBFOX2	random_pairs_non_screen_hits	plate 0
+X_000	SRSF9	FKBP4	random_pairs_non_screen_hits	plate 0
+X_000	SRSF9	NIP7	random_pairs_non_screen_hits	plate 0
+X_000	SRSF9	SFPQ	random_pairs_non_screen_hits	plate 0
+X_000	SRSF9	ZC3H8	random_pairs_non_screen_hits	plate 0
+X_000	STAU2	FUBP3	random_pairs_non_screen_hits	plate 0
+X_000	STAU2	HNRNPU	random_pairs_non_screen_hits	plate 0
+X_000	STAU2	IGF2BP2	random_pairs_non_screen_hits	plate 0
+X_000	STAU2	LARP4	random_pairs_non_screen_hits	plate 0
+X_000	STAU2	PPIL4	random_pairs_non_screen_hits	plate 0
+X_000	STAU2	SF3B4	random_pairs_non_screen_hits	plate 0
+X_000	STAU2	TAF15	random_pairs_non_screen_hits	plate 0
+X_000	STAU2	TARDBP	random_pairs_non_screen_hits	plate 0
+X_000	STAU2	WDR3	random_pairs_non_screen_hits	plate 0
+X_000	SUPV3L1	CSTF2T	random_pairs_non_screen_hits	plate 0
+X_000	SUPV3L1	FKBP4	random_pairs_non_screen_hits	plate 0
+X_000	SUPV3L1	FXR2	random_pairs_non_screen_hits	plate 0
+X_000	SUPV3L1	PTBP1	random_pairs_non_screen_hits	plate 0
+X_000	SUPV3L1	RBM22	random_pairs_non_screen_hits	plate 0
+X_000	SUPV3L1	U2AF2	random_pairs_non_screen_hits	plate 0
+X_000	SUPV3L1	ZC3H8	random_pairs_non_screen_hits	plate 0
+X_000	TAF15	DDX42	random_pairs_non_screen_hits	plate 0
+X_000	TAF15	ILF3	random_pairs_non_screen_hits	plate 0
+X_000	TAF15	PCBP1	random_pairs_non_screen_hits	plate 0
+X_000	TAF15	STAU2	random_pairs_non_screen_hits	plate 0
+X_000	TAF15	U2AF2	random_pairs_non_screen_hits	plate 0
+X_000	TAF15	ZC3H8	random_pairs_non_screen_hits	plate 0
+X_000	TARDBP	HNRNPA1	random_pairs_non_screen_hits	plate 0
+X_000	TARDBP	IGF2BP2	random_pairs_non_screen_hits	plate 0
+X_000	TARDBP	SF3B4	random_pairs_non_screen_hits	plate 0
+X_000	TARDBP	SFPQ	random_pairs_non_screen_hits	plate 0
+X_000	TARDBP	STAU2	random_pairs_non_screen_hits	plate 0
+X_000	TARDBP	U2AF2	random_pairs_non_screen_hits	plate 0
+X_000	TARDBP	WDR3	random_pairs_non_screen_hits	plate 0
+X_000	TARDBP	ZC3H8	random_pairs_non_screen_hits	plate 0
+X_000	TIA1	CSTF2T	random_pairs_non_screen_hits	plate 0
+X_000	TIA1	LARP4	random_pairs_non_screen_hits	plate 0
+X_000	TIA1	PCBP2	random_pairs_non_screen_hits	plate 0
+X_000	TIA1	SF3B4	random_pairs_non_screen_hits	plate 0
+X_000	TIA1	SRSF1	random_pairs_non_screen_hits	plate 0
+X_000	TRA2A	FXR1	random_pairs_non_screen_hits	plate 0
+X_000	TRA2A	PCBP1	random_pairs_non_screen_hits	plate 0
+X_000	TRA2A	SFPQ	random_pairs_non_screen_hits	plate 0
+X_000	TRA2A	U2AF2	random_pairs_non_screen_hits	plate 0
+X_000	U2AF1	CPSF6	random_pairs_non_screen_hits	plate 0
+X_000	U2AF1	DDX21	random_pairs_non_screen_hits	plate 0
+X_000	U2AF1	GTF2F1	random_pairs_non_screen_hits	plate 0
+X_000	U2AF1	RBM22	random_pairs_non_screen_hits	plate 0
+X_000	U2AF2	FKBP4	random_pairs_non_screen_hits	plate 0
+X_000	U2AF2	NIP7	random_pairs_non_screen_hits	plate 0
+X_000	U2AF2	PPIL4	random_pairs_non_screen_hits	plate 0
+X_000	U2AF2	RBM5	random_pairs_non_screen_hits	plate 0
+X_000	U2AF2	SUPV3L1	random_pairs_non_screen_hits	plate 0
+X_000	U2AF2	TAF15	random_pairs_non_screen_hits	plate 0
+X_000	U2AF2	TARDBP	random_pairs_non_screen_hits	plate 0
+X_000	U2AF2	TRA2A	random_pairs_non_screen_hits	plate 0
+X_000	WDR3	DDX21	random_pairs_non_screen_hits	plate 0
+X_000	WDR3	EWSR1	random_pairs_non_screen_hits	plate 0
+X_000	WDR3	NKRF	random_pairs_non_screen_hits	plate 0
+X_000	WDR3	STAU2	random_pairs_non_screen_hits	plate 0
+X_000	WDR3	TARDBP	random_pairs_non_screen_hits	plate 0
+X_000	YWHAG	CSTF2T	random_pairs_non_screen_hits	plate 0
+X_000	ZC3H8	SRSF9	random_pairs_non_screen_hits	plate 0
+X_000	ZC3H8	SUPV3L1	random_pairs_non_screen_hits	plate 0
+X_000	ZC3H8	TAF15	random_pairs_non_screen_hits	plate 0
+X_000	ZC3H8	TARDBP	random_pairs_non_screen_hits	plate 0
