@@ -9,23 +9,23 @@ require('mysql.inc.pl');
 $species = 'human';
 $motiftable = 'rbp_motif_list';
 
-our $usage = "$0 [method: grep/fimo] [type: eclip_encode/eclip_tom/...] [motif source] [-extend5]\n\n -extend5: Extend peaks 5' by 50 nucleotides, as \"the 5' start of the peak is predicted to correspond to the site of crosslink between the RBP and the RNA.\" (Dominguez et al. 2018)\n\nExample: $0 fimo eclip_encode attract\nExample: $0 grep eclip_tom attract";
+our $usage = "$0 [method: grep/fimo] [type: eclip_encode/eclip_tom/...] [motif source] [-extend]\n\n -extend: Extend peaks 5' and 3' by 150 nucleotides, as \"the 5' start of the peak is predicted to correspond to the site of crosslink between the RBP and the RNA.\" (Dominguez et al. 2018). eclip_encode and eclip_encode_12 peaks are always extended 50nt 5' even when this is off, or 150nt in both directions when this is on.\n\nExample: $0 fimo eclip_encode attract\nExample: $0 grep eclip_tom attract";
 ($method, $type, $source) = args(3);
 
-$tmpextend5 = '';
-if (switch('extend5'))
+$tmpextend = '';
+if (switch('extend'))
 {
-	$tmpextend5 = '-extend5';
+	$tmpextend = '-extend';
 }
 
 $source = lc($source);
 $motiffile = "input/$source.meme";
 
 $infile = "input/GRCh38.p10.genome.fa";
-$outfile = "tmp/tmp-peakseqs$tmpextend5-$method-$type-$source-combined.txt";
-$modelfile = "tmp/tmp-peakseqs$tmpextend5-$method-$type-$source-combined-model.txt";
+# $outfile = "tmp/tmp-peakseqs$tmpextend-$method-$type-$source-combined.txt";
+# $modelfile = "tmp/tmp-peakseqs$tmpextend-$method-$type-$source-combined-model.txt";
 open(IN, $infile) or die("\nError: Couldn't open '$infile'\n\n");
-open(OUT, ">$outfile") or die("\nError: Couldn't open '$outfile'\n\n");
+# open(OUT, ">$outfile") or die("\nError: Couldn't open '$outfile'\n\n");
 
 $map = 'gene';
 $intable = "clip_raw_$map";
@@ -126,8 +126,8 @@ while (($symbol, $celltype, $rep) = Fetch($rbpquery))
 	# next unless (($symbol eq 'HNRNPC') and ($celltype eq 'HEK293'));
 	# #END DEBUG
 
-	$tmpfile = "tmp/tmp-peakseqs$tmpextend5-$method-$type-$source-$symbol-$celltype-$rep.txt";
-	$tmpmodelfile = "tmp/tmp-peakseqs$tmpextend5-$method-$type-$source-$symbol-$celltype-$rep-model.txt";
+	$tmpfile = "tmp/tmp-peakseqs$tmpextend-$method-$type-$source-$symbol-$celltype-$rep.txt";
+	# $tmpmodelfile = "tmp/tmp-peakseqs$tmpextend-$method-$type-$source-$symbol-$celltype-$rep-model.txt";
 	open(TMP, ">$tmpfile") or die("\nError: Couldn't open '$tmpfile'\n\n");
 
 	# Does the RBP have at least one known motif?
@@ -155,23 +155,47 @@ while (($symbol, $celltype, $rep) = Fetch($rbpquery))
 		# Got at least one motif for this RBP
 		next if (!exists($motifs{$symbol}));
 		
-		# Extend 5':
+		
+		
+		# 5' and 3' extensions
+		$tmpstart = $start;
+		$tmpstop = $stop;
+		
+		# Even with -extend off:
+		# Always extend ENCODE CLIPper peaks 5' by 50 nt, since this is what they seem to consider the true binding region.
 		# From Dominguez et al. 2018 RNA Bind-N-Seq:
 		# "Peaks were also extended 50 nucleotides in the 5' direction as the 5' start of the peak is predicted to correspond to the site of crosslink between the RBP and the RNA."
-		if (switch('extend5'))
+		if ($type =~ /^eclip_encode/)	# eclip_encode and eclip_encode_12
 		{
 			if ($strand eq '+')
 			{
-				$start -= 50;
+				$tmpstart -= 50;
 			}
 			elsif ($strand eq '-')
 			{
-				$stop += 50;
+				$tmpstop += 50;
+			}
+		}
+
+		# Extend 5' and 3' by 150 nt
+		# (For eclip_encode and eclip_encode_12, this is in addition to their 5' 50 nt extension)
+		if (switch('extend'))
+		{
+			# 
+			if ($strand eq '+')
+			{
+				$tmpstart -= 150;
+				$tmpstop += 150;
+			}
+			elsif ($strand eq '-')
+			{
+				$tmpstart -= 150;
+				$tmpstop += 150;
 			}
 		}
 		
 		# Get genomic sequence of the peak
-		$peakseq = substr($chr{$chr}, $start - 1, ($stop - $start) + 1);
+		$peakseq = substr($chr{$chr}, $tmpstart - 1, ($tmpstop - $tmpstart) + 1);
 
 		if ($strand eq '-')
 		{
@@ -191,7 +215,7 @@ while (($symbol, $celltype, $rep) = Fetch($rbpquery))
 
 		# Write to sequence file
 		print TMP ">$title\n".split60($peakseq)."\n";
-		print OUT ">$title\n".split60($peakseq)."\n";
+		# print OUT ">$title\n".split60($peakseq)."\n";
 
 		addme("$type: total peak regions", $title);
 		addme("$type: distinct peak regions", "$chr|$start|$stop|$strand");
@@ -199,11 +223,11 @@ while (($symbol, $celltype, $rep) = Fetch($rbpquery))
 	stopme(1);
 	close(TMP);
 
-	run("Calculating background model", "./bin/meme-5.0.5/src/fasta-get-markov -norc $tmpfile $tmpmodelfile > /dev/null 2>&1", 1);
-	print "   >> ";
-	run("cat", q(cat ).$tmpmodelfile.q( | perl -ne 'chomp; next if /^#/; ($a, $b) = split(/ /); $b+=0; print "$a $b "'), 1);
-	print "\n";
-	# state("Wrote to '$tmpmodelfile'");
+	# run("Calculating background model", "./bin/meme-5.0.5/src/fasta-get-markov -norc $tmpfile $tmpmodelfile > /dev/null 2>&1", 1);
+	# print "   >> ";
+	# run("cat", q(cat ).$tmpmodelfile.q( | perl -ne 'chomp; next if /^#/; ($a, $b) = split(/ /); $b+=0; print "$a $b "'), 1);
+	# print "\n";
+	# # state("Wrote to '$tmpmodelfile'");
 }
 stoptime();
 
@@ -211,10 +235,10 @@ stoptime();
 
 showmeall(1);
 
-state("Calculating combined background model:");
-run("Calculating combined background model", "./bin/meme-5.0.5/src/fasta-get-markov -norc $outfile $modelfile > /dev/null 2>&1", 1);
-run("cat", q(cat ).$modelfile.q( | perl -ne 'chomp; next if /^#/; ($a, $b) = split(/ /); $b+=0; print "$a $b "'), 1);
-nl();
-state("Wrote to '$modelfile'");
+# state("Calculating combined background model:");
+# run("Calculating combined background model", "./bin/meme-5.0.5/src/fasta-get-markov -norc $outfile $modelfile > /dev/null 2>&1", 1);
+# run("cat", q(cat ).$modelfile.q( | perl -ne 'chomp; next if /^#/; ($a, $b) = split(/ /); $b+=0; print "$a $b "'), 1);
+# nl();
+# state("Wrote to '$modelfile'");
 
 done();

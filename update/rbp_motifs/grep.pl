@@ -6,19 +6,19 @@ require('mysql.inc.pl');
 # initialize
 $species = 'human';
 $motiftable = 'rbp_motif_list';
-$table = 'rbp_motifs';	# to be extended by _extend5_grep_$type below
+$table = 'rbp_motifs';	# to be extended by _extend_grep_$type below
 $method = 'grep';
 
-our $usage = "$0 [type: eclip_encode/eclip_tom/...] [motif source] [-extend5] [-firstonly]\n\n -extend5: Set extend5=1 in table rbp_motifs (to indicate that get_peakseqs.pl extended regions 5' by 50 nt, as done in the RNA Bind-N-Seq paper by Chris Burge's lab)\n-firstonly: Use only the 'best' motifs (and store them with a 'significant' q-value, as opposed to a significant p-value)\n\nExample: $0 eclip_encode attract\nExample: $0 eclip_tom dominguez -firstonly";
+our $usage = "$0 [type: eclip_encode/eclip_tom/...] [motif source] [-extend] [-firstonly]\n\n -extend: Set extend=1 in table rbp_motifs (to indicate that get_peakseqs.pl extended regions 5' and 3' by 150 nt, as done in the RNA Bind-N-Seq paper by Chris Burge's lab)\n-firstonly: Use only the 'best' motifs (and store them with a 'significant' q-value, as opposed to a significant p-value)\n\nExample: $0 eclip_encode attract\nExample: $0 eclip_tom dominguez -firstonly";
 ($type, $source) = args(2);
 
-$extend5 = 0;
-$tmpextend5 = '';
-if (switch('extend5'))
+$extend = 0;
+$tmpextend = '';
+if (switch('extend'))
 {
-	$table = 'rbp_motifs_extend5';
-	$extend5 = 1;
-	$tmpextend5 = '-extend5';
+	$table = 'rbp_motifs_extend';
+	$extend = 1;
+	$tmpextend = '-extend';
 }
 $table .= '_grep_'.$type;
 
@@ -31,13 +31,13 @@ $intable = "clip_raw_$map";
 # Clear table
 if (switch('firstonly'))
 {
-	$query = Query("DELETE FROM `$table` WHERE method='$method' AND type='$type' AND source='$source' AND extend5='$extend5' AND qvalue=0");
-	state("Cleared ".commify(Numrows($query))." '$method' '$type' '$source' extend5 '$extend5' entries with q-values from table '$table'");
+	$query = Query("DELETE FROM `$table` WHERE method='$method' AND type='$type' AND source='$source' AND extend='$extend' AND qvalue=0");
+	state("Cleared ".commify(Numrows($query))." '$method' '$type' '$source' extend '$extend' entries with q-values from table '$table'");
 }
 else
 {
-	$query = Query("DELETE FROM `$table` WHERE method='$method' AND type='$type' AND source='$source' AND extend5='$extend5' AND qvalue=1");
-	state("Cleared ".commify(Numrows($query))." '$method' '$type' '$source' extend5 '$extend5' entries without q-values from table '$table'");
+	$query = Query("DELETE FROM `$table` WHERE method='$method' AND type='$type' AND source='$source' AND extend='$extend' AND qvalue=1");
+	state("Cleared ".commify(Numrows($query))." '$method' '$type' '$source' extend '$extend' entries without q-values from table '$table'");
 }
 
 
@@ -77,7 +77,7 @@ while (($symbol, $celltype, $rep) = Fetch($rbpquery))
 	addme("total symbol|celltype|reps", "$symbol|$celltype|$rep");
 
 	# Set filenames
-	$seqfile = "tmp/tmp-peakseqs$tmpextend5-$method-$type-$source-$symbol-$celltype-$rep.txt";
+	$seqfile = "tmp/tmp-peakseqs$tmpextend-$method-$type-$source-$symbol-$celltype-$rep.txt";
 	# $outfile = "output/output-grep-$type-$source-$symbol-$celltype-$rep.txt";
 	
 	# Skip if there were no significant peaks ("eclip_tom..." only)
@@ -201,8 +201,8 @@ while (($symbol, $celltype, $rep) = Fetch($rbpquery))
 				# Insert hit into rbp_motifs_...
 				# $motifid = 'grep_'.$motif;
 				# $motifid = $motif;
-				# $s = "INSERT INTO `$table` SET symbol='$symbol', acc='$acc', species='$species', celltype='$celltype', rep='$rep', method='$method', type='$type', chr='$chr', start='$start', stop='$stop', strand='$strand', source='$source', motif='$motif', hit='$hits', pvalue='$pvalue', qvalue='$qvalue', psig='$psig', qsig='$qsig', extend5='$extend5'";
-				$s = "INSERT INTO `$table` SET symbol='$symbol', acc='$acc', species='$species', celltype='$celltype', rep='$rep', method='$method', type='$type', chr='$chr', start='$start', stop='$stop', strand='$strand', source='$source', motif='$motif', motifstart='$motifstart', motifstop='$motifstop', pvalue='$pvalue', qvalue='$qvalue', psig='$psig', qsig='$qsig', extend5='$extend5'";
+				# $s = "INSERT INTO `$table` SET symbol='$symbol', acc='$acc', species='$species', celltype='$celltype', rep='$rep', method='$method', type='$type', chr='$chr', start='$start', stop='$stop', strand='$strand', source='$source', motif='$motif', hit='$hits', pvalue='$pvalue', qvalue='$qvalue', psig='$psig', qsig='$qsig', extend='$extend'";
+				$s = "INSERT INTO `$table` SET symbol='$symbol', acc='$acc', species='$species', celltype='$celltype', rep='$rep', method='$method', type='$type', chr='$chr', start='$start', stop='$stop', strand='$strand', source='$source', motif='$motif', motifstart='$motifstart', motifstop='$motifstop', pvalue='$pvalue', qvalue='$qvalue', psig='$psig', qsig='$qsig', extend='$extend'";
 				$s =~ s/=''/=NULL/g;
 				Query($s);
 				$inserted++;

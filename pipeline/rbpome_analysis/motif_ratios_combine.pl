@@ -237,8 +237,10 @@ stats_tmp\$label <- ''
 stats_tmp
 # Label anything significant (according to Pearson, Spearman and Fisher)
 stats_tmp[stats_tmp\$pearson_p<=0.05 & stats_tmp\$spearman_p<=0.05 & stats_tmp\$fisher_p<=0.05,]\$label <- stats_tmp[stats_tmp\$pearson_p<=0.05 & stats_tmp\$spearman_p<=0.05 & stats_tmp\$fisher_p<=0.05,]\$pair
+print("All pairs:")
+cat(stats_tmp\$pair, sep="\\n")
 print("All tests significant:")
-stats_tmp[stats_tmp\$pearson_p<=0.05 & stats_tmp\$spearman_p<=0.05 & stats_tmp\$fisher_p<=0.05,]\$pair
+cat(stats_tmp[stats_tmp\$pearson_p<=0.05 & stats_tmp\$spearman_p<=0.05 & stats_tmp\$fisher_p<=0.05,]\$pair, sep="\\n")
 
 stats_tmp\$col <- "Insignificant motif\\ncount correlation\\n(Pearson or Spearman)"
 stats_tmp[stats_tmp\$pearson_p < 0.05 & stats_tmp\$spearman_p < 0.05,]\$col <- "Significant"
@@ -246,9 +248,11 @@ stats_tmp[stats_tmp\$fisher_p >= 0.05,]\$col <- "Insignificant motif\\npresence 
 stats_tmp\$col <- as.factor(stats_tmp\$col)
 
 stats_tmp %>%
-ggplot(aes(x=pearson_r, y=spearman_rho, colour=fct_rev(col))) + geom_point() + geom_text_repel(aes(label=label), force=15) +
+ggplot(aes(x=pearson_r, y=spearman_rho, colour=fct_rev(col))) + geom_point() + geom_text_repel(aes(label=label), force=15, force_pull=0.1, box.padding = 0.5, max.overlaps = 0, max.time = 10, max.iter = 1000000) +
  # geom_vline(xintercept=0.2, linetype="dotted") + geom_hline(yintercept=0.2, linetype="dotted") +
   scale_colour_manual("Correlations", aesthetics = c("colour", "fill"), values = c("Insignificant motif\\ncount correlation\\n(Pearson or Spearman)" = "#808778", "Significant" = "#00a1d9", "Insignificant motif\\npresence correlation\\n(Fisher's exact test)" = "#bcc3b4")) +
+  scale_x_continuous(breaks = breaks_pretty(6)) +
+  scale_y_continuous(breaks = breaks_pretty(6)) +
   theme_minimal() +
   # labs(title='Correlation of motif counts for RBP pairs at cobound sites',
   #      caption="Cobound sites: cases where both RBPs have binding regions in proximity (≤54 nt).\\n\\nPearson and Spearman correlations of motif counts per RBP pair.\\nThe dotted lines indicate 0.2 as arbitrary thresholds of strong correlation.\\nEvery pair above these thresholds is labelled.\\n\\nThe Fisher test further indicates whether having a motif at all is correlated\\nbetween the two RBPs. The Fisher test takes precedence for the colour coding.") +
@@ -256,7 +260,8 @@ ggplot(aes(x=pearson_r, y=spearman_rho, colour=fct_rev(col))) + geom_point() + g
   guides(colour=F, fill=F) +
   xlab("Pearson's r") +
   ylab("Spearman's rho") +
-ggsave(paste0("output-motif_analysis-correlations-$table-$type-$scoretype-mindist_threshold$mindist_threshold-$motif_method-extend5_$motif_extend5-compact.pdf"), width=91.5, height=91.5, units="mm")
+  # ggsave(paste0("output-motif_analysis-correlations-$table-$type-$scoretype-mindist_threshold$mindist_threshold-$motif_method-extend5_$motif_extend5-compact.pdf"), width=91.5, height=91.5, units="mm")
+  ggsave(paste0("output-motif_analysis-correlations-$table-$type-$scoretype-mindist_threshold$mindist_threshold-$motif_method-extend5_$motif_extend5-compact.pdf"), width=110, height=110, units="mm")
 
 q %>% filter(bindtype=="close") %>% print
 

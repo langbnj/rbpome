@@ -1359,6 +1359,8 @@ if (switch('2A'))
 
 	p <- ggplot(q, aes(x=set, y=$mode, colour=set)) + coord_flip() + geom_boxplot(notch=T, outlier.shape=NA) + geom_beeswarm(alpha=0.25, shape=16, groupOnX=T) + stat_compare_means(method="kruskal.test", comparisons=list(c("Random RBP pairs", "Identified interactions")), label="p.signif") + scale_colour_manual(values = c("#BEC1C0", "#FF7F00", "#1E3D59"), aesthetics=c("colour", "fill")) + xlab("") + ylab("p=$p_value (resampling: $resampling_p_value)") + ggtitle("RNA target set similarity (Jaccard index)") + theme_minimal() + theme(legend.position = "none") + theme(plot.title=element_text(hjust=0))$tmpscale
 	ggsave("../Figure 2A - $type - $scoretype.pdf", device=cairo_pdf, width=91.5, height=45.75, units="mm")
+	p <- ggplot(q, aes(x=set, y=$mode, colour=set)) + coord_flip() + geom_violin(draw_quantiles = c(0.5)) + geom_beeswarm(alpha=0.25, shape=16, groupOnX=T) + stat_compare_means(method="kruskal.test", comparisons=list(c("Random RBP pairs", "Identified interactions")), label="p.signif") + scale_colour_manual(values = c("#BEC1C0", "#FF7F00", "#1E3D59"), aesthetics=c("colour", "fill")) + xlab("") + ylab("p=$p_value (resampling: $resampling_p_value)") + ggtitle("RNA target set similarity (Jaccard index)") + theme_minimal() + theme(legend.position = "none") + theme(plot.title=element_text(hjust=0))$tmpscale
+	ggsave("../Figure 2A - $type - $scoretype - Violin.pdf", device=cairo_pdf, width=91.5, height=45.75, units="mm")
 	)));
 }
 elsif (switch('2B'))
@@ -1376,6 +1378,8 @@ elsif (switch('2B'))
 	# p <- ggplot(q, aes(x=cobind, y=set, colour=set)) + geom_boxplot(notch=T, outlier.shape=NA) + geom_beeswarm(alpha=0.25, shape=16, groupOnX=F) + scale_colour_manual(values = c("#BEC1C0", "#FF7F00", "#1E3D59"), aesthetics=c("colour", "fill")) + coord_cartesian(xlim=c(0,1)) + xlab("") + ylab("") + ggtitle("Conditional probability of co-binding") + theme_minimal() + theme(legend.position = "none") + theme(plot.title=element_text(hjust=0))$tmpscale
 	p <- ggplot(q, aes(x=cobind, y=set, colour=set)) + geom_boxplot(notch=T, outlier.shape=NA) + geom_beeswarm(alpha=0.25, shape=16, groupOnX=F) + scale_colour_manual(values = c("#BEC1C0", "#FF7F00", "#1E3D59"), aesthetics=c("colour", "fill")) + coord_cartesian(xlim=c(0,1)) + xlab("") + ylab("") + ggtitle("Conditional probability of co-binding") + theme_minimal() + theme(legend.position = "none") + theme(plot.title=element_text(hjust=0))$tmpscale
 	ggsave("../Figure 2B - $type - $scoretype.pdf", device=cairo_pdf, width=91.5, height=45.75, units="mm")
+	p <- ggplot(q, aes(x=cobind, y=set, colour=set)) + geom_violin(draw_quantiles = c(0.5)) + geom_beeswarm(alpha=0.25, shape=16, groupOnX=F) + scale_colour_manual(values = c("#BEC1C0", "#FF7F00", "#1E3D59"), aesthetics=c("colour", "fill")) + coord_cartesian(xlim=c(0,1)) + xlab("") + ylab("") + ggtitle("Conditional probability of co-binding") + theme_minimal() + theme(legend.position = "none") + theme(plot.title=element_text(hjust=0))$tmpscale
+	ggsave("../Figure 2B - $type - $scoretype - Violin.pdf", device=cairo_pdf, width=91.5, height=45.75, units="mm")
 	)));
 }
 elsif (switch('2C_old'))
@@ -1471,6 +1475,8 @@ else
 	# Plot horizontal
 	p <- ggplot(q, aes(x=set, y=$mode, colour=set)) + coord_flip() + geom_boxplot(notch=T, outlier.shape=NA) + geom_beeswarm(alpha=0.25, shape=16, groupOnX=T) + stat_compare_means(method="kruskal.test", comparisons=list(c("Random RBP pairs", "Identified interactions")), label="p.signif") + scale_colour_manual(values = c("#BEC1C0", "#FF7F00", "#1E3D59"), aesthetics=c("colour", "fill")) + xlab("") + ylab("p=$p_value (resampling: $resampling_p_value)") + ggtitle("$mode: $axis") + theme_minimal() + theme(legend.position = "none") + theme(plot.title=element_text(hjust=0))$tmpscale
 	ggsave("../Figure 2 - $table - $mode - $type - $scoretype.pdf", device=cairo_pdf, width=91.5, height=45.75, units="mm")
+	p <- ggplot(q, aes(x=set, y=$mode, colour=set)) + coord_flip() + geom_violin(draw_quantiles = c(0.5)) + geom_beeswarm(alpha=0.25, shape=16, groupOnX=T) + stat_compare_means(method="kruskal.test", comparisons=list(c("Random RBP pairs", "Identified interactions")), label="p.signif") + scale_colour_manual(values = c("#BEC1C0", "#FF7F00", "#1E3D59"), aesthetics=c("colour", "fill")) + xlab("") + ylab("p=$p_value (resampling: $resampling_p_value)") + ggtitle("$mode: $axis") + theme_minimal() + theme(legend.position = "none") + theme(plot.title=element_text(hjust=0))$tmpscale
+	ggsave("../Figure 2 - $table - $mode - $type - $scoretype - Violin.pdf", device=cairo_pdf, width=91.5, height=45.75, units="mm")
 	
 	# Plot vertical (old school)
 	p <- ggplot(q, aes(x=set, y=$mode, colour=set)) + geom_boxplot(notch=T, outlier.shape=NA) + geom_beeswarm(alpha=0.25, shape=16, groupOnX=T) + stat_compare_means(method="kruskal.test", comparisons=list(c("Random RBP pairs", "Identified interactions")), label="p.signif") + scale_colour_manual(values = c("#BEC1C0", "#FF7F00", "#1E3D59"), aesthetics=c("colour", "fill")) + xlab("") + ylab("p=$p_value (resampling: $resampling_p_value)") + ggtitle("$axis") + theme_minimal() + theme(legend.position = "none") + theme(plot.title=element_text(hjust=0))$tmpscale

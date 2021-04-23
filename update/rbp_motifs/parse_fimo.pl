@@ -8,17 +8,17 @@ require('mysql.inc.pl');
 $species = 'human';
 $map = 'gene';
 $intable = "clip_raw_$map";
-$table = 'rbp_motifs';	# to be extended by _extend5_grep_$type below
+$table = 'rbp_motifs';	# to be extended by _extend_grep_$type below
 
 our $usage = "$0 [method: fimo/fimobg/fimobgi] [type: eclip_encode/eclip_tom/...] [motif source] [p/q-value threshold] [-qvalue]\n\n-qvalue: Use a q-value threshold of 0.05 (instead of a p-value of 0.05)\n\nExample: $0 fimo eclip_encode attract 0.001\nExample: $0 fimobgi eclip_tom attract 0.05 -qvalue";
 ($method, $type, $source, $thresh) = args(4);
 
-$tmpextend5 = '';
-$tmpextend5_2 = '';
-if (switch('extend5'))
+$tmpextend = '';
+$tmpextend_2 = '';
+if (switch('extend'))
 {
-	$tmpextend5 = '-extend5';
-	$tmpextend5_2 = '_extend5';
+	$tmpextend = '-extend';
+	$tmpextend_2 = '_extend';
 }
 
 # # Clear table
@@ -44,11 +44,11 @@ if (switch('qvalue'))
 }
 
 # $outfile = "tmp-rbp_motifs.txt";
-$extend5 = 0;
-if (switch('extend5'))
+$extend = 0;
+if (switch('extend'))
 {
-	$table = 'rbp_motifs_extend5';
-	$extend5 = 1;
+	$table = 'rbp_motifs_extend';
+	$extend = 1;
 }
 $table .= '_'.$method.'_'.$type;
 $outfile = "tmp-$table-$source-$thresh$tmpqvalue.txt";
@@ -103,7 +103,7 @@ if (!-s $outfile)
 	# Start
 	nl();
 	state("Parsing motif hits from FIMO output files and writing to temporary file '$outfile':", 1);
-	open(LS, "ls -1 output/output$tmpextend5-$method-$type-$source-*-$tmpthresh$tmpqvalue.txt|") or die("Error: Couldn't ls input files at 'output/output$tmpextend5-$method-$type-$source-*-$tmpthresh$tmpqvalue.txt'");
+	open(LS, "ls -1 output/output$tmpextend-$method-$type-$source-*-$tmpthresh$tmpqvalue.txt|") or die("Error: Couldn't ls input files at 'output/output$tmpextend-$method-$type-$source-*-$tmpthresh$tmpqvalue.txt'");
 	starttime();
 	$inserted = 0;
 	while (<LS>)
@@ -112,12 +112,12 @@ if (!-s $outfile)
 		# output/output-fimo-eclip_tom-rnacompete-TARDBP-K562-0_05-qvalue.txt
 		$infile = $_;
 	
-		$infile =~ /^output\/output$tmpextend5-$method-$type-$source-([^\-]+)-([^\-]+)-([^\-]+)-$tmpthresh$tmpqvalue\.txt/ or die("Error: Couldn't match input file name '$infile");
+		$infile =~ /^output\/output$tmpextend-$method-$type-$source-([^\-]+)-([^\-]+)-([^\-]+)-$tmpthresh$tmpqvalue\.txt/ or die("Error: Couldn't match input file name '$infile");
 		$symbol = $1;
 		$celltype = $2;
 		$rep = $3;
 	
-		die("Error: Unexpected input filename from ls: $infile") if ($infile ne "output/output$tmpextend5-$method-$type-$source-$symbol-$celltype-$rep-$tmpthresh$tmpqvalue.txt");
+		die("Error: Unexpected input filename from ls: $infile") if ($infile ne "output/output$tmpextend-$method-$type-$source-$symbol-$celltype-$rep-$tmpthresh$tmpqvalue.txt");
 	
 		# Read results
 		open(IN, $infile) or die("Error: Couldn't open '$infile'");
@@ -140,7 +140,7 @@ if (!-s $outfile)
 			
 			
 			# p-value cutoff:
-			# output-extend5-fimo-eclip_encode_12-attract-AKAP1-HepG2-1-0_001.txt:
+			# output-extend-fimo-eclip_encode_12-attract-AKAP1-HepG2-1-0_001.txt:
 			# motif_id	motif_alt_id	sequence_name	start	stop	strand	score	p-value	q-value	matched_sequence
 			# AKAP1_1		AKAP1|HepG2|1|chr1|16124559|16124681|-	38	45	+	9.12587	0.000381
 			# AKAP1_1		AKAP1|HepG2|1|chr1|16124559|16124681|-	40	47	+	15.6084	1.53e-05
@@ -153,7 +153,7 @@ if (!-s $outfile)
 			
 			
 			# q-value cutoff:
-			# output-extend5-fimo-eclip_encode_12-attract-CPEB4-K562-1-0_05-qvalue
+			# output-extend-fimo-eclip_encode_12-attract-CPEB4-K562-1-0_05-qvalue
 			# CPEB4_2		CPEB4|K562|1|chr6|43786242|43786336|+	27	33	+	12.136	6.1e-05	0.016	CUUUUUU
 			# CPEB4_2		CPEB4|K562|1|chr1|151404153|151404297|-	30	36	+	12.136	6.1e-05	0.016	CUUUUUU
 			# CPEB4_2		CPEB4|K562|1|chr1|77948580|77948678|-	35	41	+	12.136	6.1e-05	0.016	CUUUUUU
@@ -200,17 +200,43 @@ if (!-s $outfile)
 			$start = $site[4];
 			$stop = $site[5];
 			$strand = $site[6];
+			
+			# Correct for extension (150 nt 5' and 3', and another 50 nt 5' for eclip_encode and eclip_encode_12)
+			$tmpstart = $start;
+			$tmpstop = $stop;
+			
+			# Move coordinates up by 50 nt for ENCODE CLIPper peaks, since this is what they seem to consider the true binding region.
+			if ($type =~ /^eclip_encode/)	# eclip_encode and eclip_encode_12
+			{
+				if ($strand eq '+')
+				{
+					$tmpstart -= 50;
+				}
+				elsif ($strand eq '-')
+				{
+					$tmpstop += 50;
+				}
+			}
+
+			# Move coordinates 5' by 150 nt (3' is irrelevant here)
+			# (For eclip_encode and eclip_encode_12, this is in addition to their 5' 50 nt extension)
+			if (switch('extend'))
+			{
+				$tmpstart -= 150;
+				$tmpstop += 150;
+			}
+
 
 			# Assign motif genomic coordinates
 			if ($strand eq '+')
 			{
-				$motifstart = $start + ($tmp_motifstart - 1);
-				$motifstop = $start + ($tmp_motifstop - 1);
+				$motifstart = $tmpstart + ($tmp_motifstart - 1);
+				$motifstop = $tmpstart + ($tmp_motifstop - 1);
 			}
 			elsif ($strand eq '-')
 			{
-				$motifstart = $stop - ($tmp_motifstop - 1);
-				$motifstop = $stop - ($tmp_motifstart - 1);
+				$motifstart = $tmpstop - ($tmp_motifstop - 1);
+				$motifstop = $tmpstop - ($tmp_motifstart - 1);
 			}
 			else { die; }
 			die("Error: FIMO motif positions are actually 0-based") if ($motifstart == 0);
@@ -334,11 +360,11 @@ starttime();
 
 # if ($columns == 16)
 # {
-# 	$query = Query("LOAD DATA LOCAL INFILE '/users/gt/blang/update/rbp_motifs/$outfile' INTO TABLE $table (symbol, acc, species, celltype, rep, method, type, chr, start, stop, strand, source, motif, motifstart, motifstop, score, pvalue, qvalue) SET id=NULL, extend5=$extend5, psig=$psig, qsig=$qsig");
+# 	$query = Query("LOAD DATA LOCAL INFILE '/users/gt/blang/update/rbp_motifs/$outfile' INTO TABLE $table (symbol, acc, species, celltype, rep, method, type, chr, start, stop, strand, source, motif, motifstart, motifstop, score, pvalue, qvalue) SET id=NULL, extend=$extend, psig=$psig, qsig=$qsig");
 # }
 if ($columns == 20)
 {
-	$query = Query("LOAD DATA LOCAL INFILE '/users/gt/blang/update/rbp_motifs/$outfile' INTO TABLE $table (symbol, acc, species, celltype, rep, method, type, chr, start, stop, strand, source, motif, motifstart, motifstop, score, pvalue, qvalue, psig, qsig) SET id=NULL, extend5=$extend5");
+	$query = Query("LOAD DATA LOCAL INFILE '/users/gt/blang/update/rbp_motifs/$outfile' INTO TABLE $table (symbol, acc, species, celltype, rep, method, type, chr, start, stop, strand, source, motif, motifstart, motifstop, score, pvalue, qvalue, psig, qsig) SET id=NULL, extend=$extend");
 }
 else
 {

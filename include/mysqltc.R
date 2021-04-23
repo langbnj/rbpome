@@ -13,5 +13,6 @@ superreservedcon = dbConnect(superreserveddrv, host="localhost", port=3306, dbna
 
 Query <- function(query)
 {
-  a = dbGetQuery(superreservedcon, statement=query)
+    # a = dbGetQuery(superreservedcon, statement=query)
+    a = as_tibble(dbGetQuery(superreservedcon, statement=query))
 }

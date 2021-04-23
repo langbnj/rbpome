@@ -73,7 +73,39 @@ summary(subset(q, set=="negatives"))
 qo <- q
 
 
+# Get list of RBPs used in these plots
+q1 <- subset(q, random==0 & set=="superpositives") %>% select(symbol1, symbol2) %>% as_tibble %>% unique
+q1
+bind_rows(q1 %>% transmute(symbol = symbol1), q1 %>% transmute(symbol = symbol2)) %>% unique
+# 4 RBPs
+q1 <- subset(q, random==0 & set=="positives") %>% select(symbol1, symbol2) %>% as_tibble %>% unique
+bind_rows(q1 %>% transmute(symbol = symbol1), q1 %>% transmute(symbol = symbol2)) %>% unique
+# 9 RBPs
+q1 <- subset(q, random==0 & set=="screen_hits") %>% select(symbol1, symbol2) %>% as_tibble %>% unique
+q1
+bind_rows(q1 %>% transmute(symbol = symbol1), q1 %>% transmute(symbol = symbol2)) %>% unique
+# 45 RBPs, 114 pairs
+q1 <- subset(q, random==0 & (set=="screen_hits" | set=="positives")) %>% select(symbol1, symbol2) %>% as_tibble %>% unique
+q1
+bind_rows(q1 %>% transmute(symbol = symbol1), q1 %>% transmute(symbol = symbol2)) %>% unique
+# 47 RBPs, 124 pairs
+q1 <- subset(q, random==0 & (set=="screen_hits" | set=="positives" | set=="superpositives")) %>% select(symbol1, symbol2) %>% as_tibble %>% unique
+q1
+bind_rows(q1 %>% transmute(symbol = symbol1), q1 %>% transmute(symbol = symbol2)) %>% unique
+# 47 RBPs, 124 pairs
+q1 <- subset(q, random==0 & set=="background_resamples") %>% select(symbol1, symbol2) %>% as_tibble %>% unique
+q1
+bind_rows(q1 %>% transmute(symbol = symbol1), q1 %>% transmute(symbol = symbol2)) %>% unique
+# 52 RBPs, 278 pairs
+q1 <- subset(q, random==0) %>% select(symbol1, symbol2) %>% as_tibble %>% unique
+bind_rows(q1 %>% transmute(symbol = symbol1), q1 %>% transmute(symbol = symbol2)) %>% unique
+# 52 RBPs
+# Print list
+bind_rows(q1 %>% transmute(symbol = symbol1), q1 %>% transmute(symbol = symbol2)) %>% unique %>% pull %>% cat(sep = "\n")
+
+
 # myset <- "negatives"
+# myset <- "screen_hits"
 for (myset in c("negatives", "superpositives", "positives", "screen_hits", "background_resamples")) {
 # for (myset in c("negatives")) {
 # for (myset in c("superpositives", "positives")) {
@@ -589,6 +621,173 @@ ggsave(paste0("output-figure4d-legend.png"), width=183, height=91.5, units="mm")
 
 
 
+# 4d ≤400
+
+# Best plot - combined real & random
+# ≤400 only
+ggplot(subset(q, mindist<=400 & set %in% c("superpositives", "screen_hits", "background_resamples")), aes(x=mindist, colour=paste0(set,' ',random), linetype=random)) +
+  stat_ecdf() + 
+  geom_vline(xintercept = 50, linetype="dashed") + 
+  scale_colour_manual(values = cols) + 
+  coord_cartesian(xlim=c(0, 400), expand=0) + 
+  theme_minimal() +
+  # theme_minimal() + style_roc() + scale_x_continuous() +
+  xlab("Binding site distance [nt]") +
+  ylab("Probability density") +
+  guides(colour=F, linetype=F) +
+  ggsave(paste0("output-all-mindist_cdf-pooled-below400-superpositives.png"), width=5, height=5)
+
+p <- ggplot(subset(q, mindist<=400 & set %in% c("positives", "screen_hits", "background_resamples")), aes(x=mindist, colour=paste0(set,' ',random), linetype=random)) +
+  stat_ecdf() + 
+  geom_vline(xintercept = 50, linetype="dashed") + 
+  scale_colour_manual(values = cols) + 
+  coord_cartesian(xlim=c(0, 400), expand=0) + 
+  theme_minimal() +
+  xlab("Binding site distance [nt]") +
+  ylab("Probability density") +
+  guides(colour=F, linetype=F)
+p
+ggsave(paste0("output-all-mindist_cdf-pooled-below400-positives.png"), width=5, height=5)
+
+# Final for Figure 4
+ggsave(paste0("output-figure4d-400.pdf"), width=91.5, height=91.5, units="mm", device=cairo_pdf)
+ggsave(paste0("output-figure4d-400.png"), width=91.5, height=91.5, units="mm")
+
+# With legend
+p <- p + guides(colour="legend", linetype="legend")
+p
+ggsave(paste0("output-figure4d-400-legend.pdf"), width=183, height=91.5, units="mm", device=cairo_pdf)
+ggsave(paste0("output-figure4d-400-legend.png"), width=183, height=91.5, units="mm")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 4e ≤400
+# Difference: below400
+# Get graphs
+if (exists("alldif")) { rm(alldif) }
+for (myset in c("superpositives", "positives", "screen_hits", "background_resamples")) {
+  cat(paste0(" >> ",myset,"\n"))
+  # try(print(str(alldif)))
+  realfun <- ecdf(subset(q, set==myset & random==0 & mindist<=400)$mindist)
+  randfun <- ecdf(subset(q, set==myset & random==1 & mindist<=400)$mindist)
+  
+  dif <- matrix(ncol=2, nrow=max(q$mindist)+1)
+  dif[,1] <- 0:max(q$mindist)
+  dif[,2] <- apply(dif, 1, function(x){realfun(x[1]) - randfun(x[1])})
+  dif <- as.data.frame(dif)
+  colnames(dif) <- c("x", "y")
+  dif$set <- myset
+  
+  if (exists("alldif") == T) {
+    alldif <- rbind(alldif, dif)
+  } else {
+    alldif <- dif
+  }
+}
+dif <- alldif
+dif$set <- as.factor(dif$set)
+str(dif)
+
+# Find maximum: superpositives (≤1000)
+max_superpositives <- max(subset(dif, set=="superpositives")$y)
+max_superpositives
+thresh_superpositives <- dif[dif$set=="superpositives" & dif$y==max_superpositives,]$x
+thresh_superpositives
+
+# Find maximum: positives (≤1000)
+max_positives <- max(subset(dif, set=="positives")$y)
+max_positives
+thresh_positives <- dif[dif$set=="positives" & dif$y==max_positives,]$x
+thresh_positives
+
+# Find maximum: screen_hits (≤1000)
+max_screen_hits <- max(subset(dif, set=="screen_hits")$y)
+max_screen_hits
+thresh_screen_hits <- dif[dif$set=="screen_hits" & dif$y==max_screen_hits,]$x
+thresh_screen_hits
+
+# Find maximum: background_resamples
+max_background_resamples <- max(subset(dif, set=="background_resamples")$y)
+max_background_resamples
+thresh_background_resamples <- dif[dif$set=="background_resamples" & dif$y==max_background_resamples,]$x
+thresh_background_resamples
+
+
+# Plot
+ggplot(subset(dif, set %in% c("superpositives", "screen_hits", "background_resamples")), aes(x, y, colour=paste0(set,' 0'))) + 
+  geom_line() + 
+  geom_vline(xintercept = thresh_superpositives, linetype="dotted", colour=cols["superpositives 0"]) + 
+  geom_vline(xintercept = thresh_screen_hits, linetype="dotted", colour=cols["screen_hits 0"]) + 
+  geom_vline(xintercept = thresh_background_resamples, linetype="dotted", colour=cols["background_resamples 0"]) + 
+  annotate("text", x=thresh_superpositives, y=Inf, hjust=0, vjust=1, label=round(thresh_superpositives), colour=cols["superpositives 0"]) +
+  annotate("text", x=thresh_screen_hits, y=Inf, hjust=0, vjust=1, label=round(thresh_screen_hits), colour=cols["screen_hits 0"]) +
+  annotate("text", x=thresh_background_resamples, y=Inf, hjust=0, vjust=1, label=round(thresh_background_resamples), colour=cols["background_resamples 0"]) +
+  scale_colour_manual(values = cols) + 
+  coord_cartesian(xlim=c(0, 400), expand=0) + 
+  theme_minimal() +
+  xlab("Binding site distance [nt]") +
+  ylab("Probability density") +
+  guides(colour=F)
+ggsave(paste0("output-all-mindist_cdf-pooled-below400-difference-superpositives.png"), width=5, height=5)
+
+p <- ggplot(subset(dif, set %in% c("positives", "screen_hits", "background_resamples")), aes(x, y, colour=paste0(set,' 0'))) + 
+  geom_line() + 
+  geom_vline(xintercept = thresh_positives, linetype="dotted", colour=cols["positives 0"]) + 
+  geom_vline(xintercept = thresh_screen_hits, linetype="dotted", colour=cols["screen_hits 0"]) + 
+  geom_vline(xintercept = thresh_background_resamples, linetype="dotted", colour=cols["background_resamples 0"]) + 
+  annotate("text", x=thresh_positives, y=Inf, hjust=0, vjust=1, label=round(thresh_positives), colour=cols["positives 0"]) +
+  annotate("text", x=thresh_screen_hits, y=Inf, hjust=0, vjust=1, label=round(thresh_screen_hits), colour=cols["screen_hits 0"]) +
+  annotate("text", x=thresh_background_resamples, y=Inf, hjust=0, vjust=1, label=round(thresh_background_resamples), colour=cols["background_resamples 0"]) +
+  scale_colour_manual(values = cols) + 
+  coord_cartesian(xlim=c(0, 400), expand=0) + 
+  theme_minimal() +
+  xlab("Δ binding site distance [nt]") +
+  ylab("Probability density") +
+  guides(colour=F)
+p
+ggsave(paste0("output-all-mindist_cdf-pooled-below400-difference-positives.png"), width=5, height=5)
+
+# Final for Figure 4
+ggsave(paste0("output-figure4e-400.pdf"), width=91.5, height=91.5,units="mm", device=cairo_pdf)
+ggsave(paste0("output-figure4e-400.png"), width=91.5, height=91.5,units="mm")
+
+# With legend
+p <- p + guides(colour="legend", linetype="legend")
+p
+ggsave(paste0("output-figure4e-400-legend.pdf"), width=183, height=91.5,units="mm", device=cairo_pdf)
+ggsave(paste0("output-figure4e-400-legend.png"), width=183, height=91.5,units="mm")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # 4d ≤10,000
 
 # Best plot - combined real & random
@@ -1065,3 +1264,505 @@ ggsave(paste0("output-figure4e-unlimited-legend.png"), width=183, height=91.5,un
 
 
 
+
+
+
+
+# Plot random (originally dashed) lines only (to show how close we get to the diagonal with different distance cutoffs)
+# 4d random only
+q <- tibble(qo)
+subset(q, set %in% c("positives", "screen_hits", "background_resamples"))
+q %>% 
+  # filter(set %in% c("positives", "screen_hits", "background_resamples")) %>% 
+  filter(set == "background_resamples") %>% 
+  filter(random == 1) -> qtmp
+qtmp
+bind_rows(qtmp %>% filter(mindist<=50) %>% mutate(mindist=mindist/50, maxdist=50),
+          qtmp %>% filter(mindist<=100) %>% mutate(mindist=mindist/100, maxdist=100),
+          qtmp %>% filter(mindist<=200) %>% mutate(mindist=mindist/200, maxdist=200),
+          qtmp %>% filter(mindist<=400) %>% mutate(mindist=mindist/400, maxdist=400),
+          qtmp %>% filter(mindist<=700) %>% mutate(mindist=mindist/700, maxdist=700),
+          qtmp %>% filter(mindist<=1000) %>% mutate(mindist=mindist/1000, maxdist=1000),
+          qtmp %>% filter(mindist<=2000) %>% mutate(mindist=mindist/2000, maxdist=2000),
+          qtmp %>% filter(mindist<=4000) %>% mutate(mindist=mindist/4000, maxdist=4000),
+          qtmp %>% filter(mindist<=7000) %>% mutate(mindist=mindist/7000, maxdist=7000),
+          qtmp %>% filter(mindist<=10000) %>% mutate(mindist=mindist/10000, maxdist=10000),
+          qtmp %>% filter(mindist<=20000) %>% mutate(mindist=mindist/20000, maxdist=20000),
+          qtmp %>% filter(mindist<=100000) %>% mutate(mindist=mindist/100000, maxdist=100000)) %>%
+  ggplot(aes(x=mindist, colour=as.factor(maxdist), linetype=(maxdist!=1000))) +
+  stat_ecdf() +
+  # stat_ecdf(geom="line") +
+  # geom_vline(xintercept = 50, linetype="dashed") + 
+  # geom_abline(linetype="dashed") +
+  geom_abline() +
+  # scale_colour_manual(values = cols) + 
+  scale_colour_discrete(name = "Maximum distance") +
+  # scale_linetype_manual(values = c("dotted", "solid")) +
+  scale_linetype_manual(values = c("solid", "dotted")) +
+  # scale_linetype_manual(values = c("solid", "dashed")) +
+  coord_cartesian(xlim=c(0, 1), expand=0) +
+  theme_minimal() +
+  xlab("Binding site distance (relative to maximum distance)") +
+  ylab("Cumulative probability density") +
+  guides(linetype=F) +
+  # ggsave(paste0("output-figure-R1B-maxdists.pdf"), width=137.25, height=91.5, units="mm") +
+  # ggsave(paste0("output-figure-R1B-maxdists-cairo.pdf"), width=137.25, height=91.5, units="mm", device = cairo_pdf) +
+  ggsave(paste0("output-figure-R1B-maxdists.png"), width=137.25, height=91.5, units="mm")
+
+
+
+
+
+
+
+
+
+
+
+# Plot binding site distance distribution
+q <- tibble(qo)
+
+# Split into real & random, subsample random, then recombine
+# Real
+real <- subset(q, random==0)
+# Random
+if (exists("random")) { rm(random) }
+for (myset in unique(q$set)) {
+  cat(paste0(" >> ",myset,"\n"))
+  
+  # Subsample the random set
+  set.seed(2020)
+  random_sub <- sample_n(subset(q, random==1 & set==myset), nrow(subset(q, random==0 & set==myset)), replace=T)
+  
+  if (exists("random") == T) {
+    random <- rbind(random, random_sub)
+  } else {
+    random <- random_sub
+  }
+}
+# Recombine
+summary(real)
+summary(random)
+q <- rbind(real, random)
+# str(q)
+
+# How many "distance=0" cases are there?
+real %>% 
+  filter(set == "screen_hits") %>% 
+  filter(mindist<=1000) %>%
+  group_by(pair) %>%
+  summarise(mediandist = median(mindist)) %>%
+  ggplot(aes(x=mediandist, y=pair)) + geom_bar(stat="identity")
+
+real %>% 
+  filter(set == "screen_hits") %>% 
+  filter(mindist<=10000) %>%
+  ggplot(aes(x=mindist)) + geom_histogram() + theme_minimal()
+
+real %>% 
+  filter(set == "screen_hits") %>% 
+  filter(mindist<=54) %>%
+  ggplot(aes(x=mindist)) +
+  geom_histogram(binwidth=1) +
+  scale_x_continuous(breaks=pretty_breaks(20), expand=c(0,0)) +
+  theme_minimal() +
+  xlab("Binding site distance") +
+  ylab("Frequency") +
+  # theme(panel.grid.minor = element_blank()) +
+  # ggtitle("Screen hits") +
+  ggsave(paste0("output-figure-R6-screen_hits.pdf"), width=6, height=4)
+
+real %>% 
+  filter(set == "positives") %>% 
+  filter(mindist<=54) %>%
+  ggplot(aes(x=mindist)) +
+  geom_histogram(binwidth=1) +
+  scale_x_continuous(breaks=pretty_breaks(20), expand=c(0,0)) +
+  theme_minimal() +
+  xlab("Binding site distance") +
+  ylab("Frequency") +
+  # theme(panel.grid.minor = element_blank()) +
+  ggsave(paste0("output-figure-R6-positives.pdf"), width=6, height=4)
+
+q %>% 
+  filter(set %in% c("positives", "screen_hits", "background_resamples")) %>% 
+  filter(mindist<=54) %>%
+  ggplot(aes(x=mindist)) +
+  geom_histogram(binwidth=1) +
+  # geom_density() +
+  scale_x_continuous(breaks=pretty_breaks(20), expand=c(0,0)) +
+  facet_wrap(~fct_relevel(set, "positives", "screen_hits"), ncol=1, scales="free_y") +
+  theme_minimal() +
+  xlab("Binding site distance") +
+  ylab("Frequency") +
+  # theme(panel.grid.minor = element_blank()) +
+  ggsave(paste0("output-figure-R6.pdf"), width=5, height=5)
+
+q %>% 
+  filter(set %in% c("positives", "screen_hits", "background_resamples")) %>% 
+  filter(mindist<=54) %>%
+  ggplot(aes(x=mindist, colour=fct_relevel(set, "positives", "screen_hits"))) +
+  # geom_histogram(binwidth=1) +
+  geom_density() +
+  scale_x_continuous(breaks=pretty_breaks(20), expand=c(0,0)) +
+  # facet_wrap(~fct_relevel(set, "positives", "screen_hits"), ncol=1, scales="free_y") +
+  theme_minimal() +
+  guides(fill=F, colour=F) +
+  xlab("Binding site distance") +
+  ylab("Frequency") +
+  # theme(panel.grid.minor = element_blank()) +
+  ggsave(paste0("output-figure-R6-density.pdf"), width=6, height=8)
+
+# Which RBP pairs are they for?
+
+# Strictly filtered for cobinding (resampling p-value and resampling Wilcoxon p-value significant in one orientation at least)
+# Real RBP pairs (SUM_IS screen hits, and with eCLIP data of course) (21: the "strict" Cytoscape network, Figure 5a)
+qtmp <- Query("SELECT protein_a AS symbol1, protein_b AS symbol2 FROM rbpome_final WHERE encode_eclip_data_a=1 AND encode_eclip_data_b=1 AND (resampling_p_value_a_vs_b IS NOT NULL AND resampling_p_value_b_vs_a IS NOT NULL AND resampling_wilcoxon_p_value_a_vs_b IS NOT NULL AND resampling_wilcoxon_p_value_b_vs_a IS NOT NULL) AND ((resampling_p_value_a_vs_b<0.05 AND resampling_wilcoxon_p_value_a_vs_b<0.05) OR (resampling_p_value_b_vs_a<0.05 AND resampling_wilcoxon_p_value_b_vs_a<0.05)) GROUP BY protein_a, protein_b ORDER BY protein_a, protein_b")
+# qtmp %>% select(symbol1, symbol2) %>% unique %>% transmute(pair = glue("{symbol1} {symbol2}")) -> qtmppairs
+qtmp %>% select(symbol1, symbol2) %>% unique -> hcpairs
+print(hcpairs, n=50)
+# Add inverse pairs
+hcpairs %<>% bind_rows(hcpairs %>% transmute(newsymbol1=symbol2, newsymbol2=symbol1) %>% transmute(symbol1=newsymbol1, symbol2=newsymbol2)) %>% unique
+hcpairs
+hcpairs %<>% transmute(pair=as.character(glue("{symbol1}|{symbol2}"))) %>% mutate(hc=1)
+hcpairs
+
+# Screen hit pairs
+# Real RBP pairs (SUM_IS screen hits, and with eCLIP data of course)
+qtmp <- Query("SELECT protein_a AS symbol1, protein_b AS symbol2 FROM rbpome_final WHERE encode_eclip_data_a=1 AND encode_eclip_data_b=1 AND sumis>=7.1 GROUP BY protein_a, protein_b ORDER BY protein_a, protein_b")
+# qtmp %>% select(symbol1, symbol2) %>% unique %>% transmute(pair = glue("{symbol1} {symbol2}")) -> qtmppairs
+qtmp %>% select(symbol1, symbol2) %>% unique -> screenpairs
+print(screenpairs, n=50)
+# # Add inverse pairs
+# screenpairs %<>% bind_rows(screenpairs %>% transmute(newsymbol1=symbol2, newsymbol2=symbol1) %>% transmute(symbol1=newsymbol1, symbol2=newsymbol2)) %>% unique
+# screenpairs
+screenpairs %<>% transmute(pair=as.character(glue("{symbol1}|{symbol2}"))) %>% mutate(screenpair=1)
+screenpairs
+
+# Screen hit pairs (with inverse pairs)
+# Real RBP pairs (SUM_IS screen hits, and with eCLIP data of course)
+qtmp <- Query("SELECT protein_a AS symbol1, protein_b AS symbol2 FROM rbpome_final WHERE encode_eclip_data_a=1 AND encode_eclip_data_b=1 AND sumis>=7.1 GROUP BY protein_a, protein_b ORDER BY protein_a, protein_b")
+# qtmp %>% select(symbol1, symbol2) %>% unique %>% transmute(pair = glue("{symbol1} {symbol2}")) -> qtmppairs
+qtmp %>% select(symbol1, symbol2) %>% unique -> screenpairflip
+print(screenpairflip, n=50)
+# Add inverse pairs
+screenpairflip %<>% bind_rows(screenpairflip %>% transmute(newsymbol1=symbol2, newsymbol2=symbol1) %>% transmute(symbol1=newsymbol1, symbol2=newsymbol2)) %>% unique
+screenpairflip
+screenpairflip %<>% transmute(pair=as.character(glue("{symbol1}|{symbol2}"))) %>% mutate(screenpairflip=1)
+screenpairflip
+
+
+real %>% 
+  filter(set %in% c("positives", "screen_hits")) %>% 
+  filter(mindist==0) %>%
+  group_by(pair) %>%
+  summarise(n0=n()) -> real0
+
+real %>% 
+  filter(set %in% c("positives", "screen_hits")) %>% 
+  group_by(pair) %>%
+  summarise(ntotal=n()) -> realtotal
+
+real %>% 
+  filter(set %in% c("positives", "screen_hits")) %>% 
+  filter(mindist<=5) %>%
+  group_by(pair) %>%
+  summarise(n5=n()) -> real5
+
+real %>% 
+  filter(set %in% c("positives", "screen_hits")) %>% 
+  filter(mindist<=54) %>%
+  group_by(pair) %>%
+  summarise(n54=n()) -> real54
+
+left_join(real54, real0) %>%
+  mutate(n0 = replace_na(n0, 0)) %>% 
+  mutate(frac0 = n0/n54) %>%
+  left_join(realtotal) %>%
+  # mutate(ntotal = replace_na(ntotal, 0)) %>% 
+  left_join(hcpairs) %>%
+  mutate(hc = replace_na(hc, 0)) %>%
+  filter(frac0>=0.1) %>%
+  filter(n54>=10) %>%
+  # arrange(-frac0)
+  # filter(frac0>=0.25) %>%
+  # filter(frac0>=0.5) %>%
+  # filter(ntotal>=100) %>%
+  # filter(ntotal>=100) %>%
+  ggplot(aes(x=fct_reorder(pair, -frac0), y=frac0, fill=hc)) + 
+  geom_bar(stat="identity") + 
+  theme_minimal() + 
+  # theme(axis.text.x = element_text(angle = 45, hjust=1, vjust=1)) +
+  theme(axis.text.x = element_text(angle = 90, hjust=1, vjust=0.5)) +
+  guides(fill=F) +
+  xlab("RBP pair") +
+  ylab("Fraction of distances = 0 nt") +
+  ggsave(paste0("output-figure-R7.pdf"), width=6, height=4)
+
+left_join(real54, real5) %>%
+  mutate(n5 = replace_na(n5, 0)) %>% 
+  mutate(frac5 = n5/n54) %>%
+  left_join(real0) %>%
+  mutate(n0 = replace_na(n0, 0)) %>% 
+  mutate(frac0 = n0/n54) %>%
+  left_join(realtotal) %>%
+  # mutate(ntotal = replace_na(ntotal, 0)) %>% 
+  left_join(hcpairs) %>%
+  mutate(hc = replace_na(hc, 0)) %>%
+  # filter(frac5>=0.2) %>%
+  filter(frac5>=0.25) %>%
+  filter(n54>=10) %>%
+  arrange(-frac5) %>%
+  # filter(frac5>=0.5) %>%
+  # filter(ntotal>=100) %>%
+  ggplot(aes(x=fct_reorder(pair, -frac5), y=frac5, fill=hc)) + 
+  geom_bar(stat="identity") + 
+  theme_minimal() + 
+  # theme(axis.text.x = element_text(angle = 45, hjust=1, vjust=1)) +
+  theme(axis.text.x = element_text(angle = 90, hjust=1, vjust=0.5)) +
+  guides(fill=F) +
+  xlab("RBP pair") +
+  ylab("Fraction of distances <=5 nt") +
+  ggsave(paste0("output-figure-R8.pdf"), width=10, height=4)
+
+
+left_join(real54, real5) %>%
+  mutate(n5 = replace_na(n5, 0)) %>% 
+  mutate(frac5 = n5/n54) %>%
+  left_join(hcpairs) %>%
+  mutate(hc = replace_na(hc, 0)) %>%
+  # filter(frac5>=0.2) %>%
+  # filter(frac5>=0.25) %>%
+  # filter(frac5>=0.5) %>%
+  filter(frac5>=1) %>%
+  left_join(real) %>%
+  filter(mindist<1000) %>%
+  # print(n=10000)
+  group_by(pair) %>%
+filter(mindist<=54) %>% print(n=100)
+  # summarise(n=n())
+
+
+
+
+
+
+
+
+# Random data: Do close distances mean we see more interactions, even if the proteins don't interact (RNA bridging)?
+real %>% 
+  filter(set %in% c("background_resamples")) %>% 
+  group_by(set, pair) %>%
+  summarise(ntotal=n()) -> randomtotal
+
+real %>% 
+  filter(set %in% c("background_resamples")) %>% 
+  filter(mindist<=5) %>%
+  group_by(set, pair) %>%
+  summarise(n5=n()) -> random5
+
+real %>% 
+  filter(set %in% c("background_resamples")) %>% 
+  filter(mindist<=54) %>%
+  group_by(set, pair) %>%
+  summarise(n54=n()) -> random54
+
+real %>% 
+  filter(set %in% c("background_resamples")) %>% 
+  filter(mindist<=1000) %>%
+  group_by(set, pair) %>%
+  summarise(n1000=n()) -> random1000
+
+real %>% 
+  filter(set %in% c("screen_hits")) %>% 
+  filter(mindist<=1000) %>%
+  group_by(set, pair) %>%
+  summarise(n1000=n()) -> real1000
+
+real %>% 
+  filter(set %in% c("screen_hits")) %>% 
+  filter(mindist<=54) %>%
+  group_by(set, pair) %>%
+  summarise(n54=n()) -> real54
+
+left_join(random1000, random54, by=c("set", "pair")) %>%
+  bind_rows(left_join(real1000, real54, by=c("set", "pair"))) %>%
+  mutate(n54 = replace_na(n54, 0)) %>% 
+  mutate(frac54 = n54/n1000) %>%
+  left_join(screenpairs) %>%
+  mutate(screenpair = replace_na(screenpair, 0)) %>%
+  left_join(screenpairflip) %>%
+  mutate(screenpairflip = replace_na(screenpairflip, 0)) %>%
+  # filter(frac54>=0.2) %>%
+  # filter(frac54>=0.25) %>%
+  filter(n1000>=100) %>%
+  # filter(set=="background_resamples" & screenpair==1) %>% pull(pair) %>% cat(sep="\n") 
+  filter(!(set=="background_resamples" & screenpairflip==1)) %>%   # Filter out background_resample RBP pairs that are screen hits (including inverse pairs)
+  # filter(!(set=="screen_hits")) %>%
+  arrange(-frac54) %>%
+  # filter(frac54>=0.5) %>%
+  # filter(ntotal>=100) %>%
+  ggplot(aes(x=fct_reorder(pair, -frac54), y=frac54, fill=screenpair)) + 
+  geom_bar(stat="identity") + 
+  theme_minimal() + 
+  # theme(axis.text.x = element_text(angle = 45, hjust=1, vjust=1)) +
+  theme(axis.text.x = element_text(angle = 90, hjust=1, vjust=0.5)) +
+  guides(fill=F) +
+  xlab("RBP pair") +
+  ylab("Fraction of distances <=54 nt") +
+  ggsave(paste0("output-figure-R7A.pdf"), width=12, height=4)
+
+left_join(random1000, random54, by=c("set", "pair")) %>%
+  bind_rows(left_join(real1000, real54, by=c("set", "pair"))) %>%
+  mutate(n54 = replace_na(n54, 0)) %>% 
+  mutate(frac54 = n54/n1000) %>%
+  left_join(screenpairs) %>%
+  mutate(screenpair = replace_na(screenpair, 0)) %>%
+  left_join(screenpairflip) %>%
+  mutate(screenpairflip = replace_na(screenpairflip, 0)) %>%
+  # filter(frac54>=0.2) %>%
+  # filter(frac54>=0.25) %>%
+  filter(n1000>=100) %>%
+  # filter(set=="background_resamples" & screenpair==1) %>% pull(pair) %>% cat(sep="\n") 
+  filter(!(set=="background_resamples" & screenpairflip==1)) %>%   # Filter out background_resample RBP pairs that are screen hits (including inverse pairs)
+  # filter(!(set=="screen_hits")) %>%
+  arrange(-frac54) %>%
+  # filter(frac54>=0.5) %>%
+  # filter(ntotal>=100) %>%
+  mutate(set=recode(set, "screen_hits"="Screen hits", "background_resamples"="Random pairs")) %>%
+  ggplot(aes(x=frac54, y=set, colour=set, fill=set)) + 
+  geom_boxplot(notch=T, alpha=0.3) + 
+  # geom_violin(draw_quantiles = c(0.5), alpha=0.3) + 
+  geom_beeswarm(groupOnX = F, shape=16, alpha=0.7) +
+  scale_x_continuous(limits = c(0,1)) +
+  scale_colour_manual(values = c("#BEC1C0", "#FF7F00", "#1E3D59"), aesthetics=c("colour", "fill")) +
+  guides(colour=F, fill=F) +
+  theme_minimal() + 
+  # theme(axis.text.x = element_text(angle = 45, hjust=1, vjust=1)) +
+  # theme(axis.text.x = element_text(angle = 90, hjust=1, vjust=0.5)) +
+  guides(fill=F) +
+  xlab("Fraction of distances <= 54 nt") +
+  ylab(NULL) +
+  ggsave(paste0("output-figure-R5.pdf"), width=4, height=2)
+
+
+
+
+# left_join(random1000, random54, by=c("set", "pair")) %>%
+# bind_rows(left_join(real1000, real54, by=c("set", "pair"))) %>%
+myrandom <- left_join(random1000, random54, by=c("set", "pair"))
+myrandom %<>% 
+  left_join(screenpairflip) %>% 
+  mutate(screenpairflip = replace_na(screenpairflip, 0)) %>% 
+  filter(screenpairflip==0) %>% select(-screenpairflip)
+myreal <- left_join(real1000, real54, by=c("set", "pair"))
+# myreal
+# nrow(myreal)
+# Get an even number of screen_hit and background RBP pairs
+bind_rows(slice_sample(myrandom, n=nrow(myreal)), myreal) %>%
+  mutate(n54 = replace_na(n54, 0)) %>% 
+  mutate(frac54 = n54/n1000) %>%
+  left_join(screenpairs) %>%
+  mutate(screenpair = replace_na(screenpair, 0)) %>%
+  left_join(screenpairflip) %>%
+  mutate(screenpairflip = replace_na(screenpairflip, 0)) %>%
+  # filter(frac54>=0.2) %>%
+  # filter(frac54>=0.25) %>%
+  # filter(n1000>=100) %>%
+  # filter(set=="background_resamples" & screenpair==1) %>% pull(pair) %>% cat(sep="\n")
+  filter(!(set=="background_resamples" & screenpairflip==1)) %>%   # Filter out background_resample RBP pairs that are screen hits (including inverse pairs)
+  # filter(!(set=="screen_hits")) %>%
+  # summary
+  # filter(n54>=100) %>%
+  arrange(-frac54) %>%
+  # filter(frac54>=0.5) %>%
+  # filter(ntotal>=100) %>%
+  mutate(set=recode(set, "screen_hits"="Screen hits", "background_resamples"="Random pairs")) %>%
+  ggplot(aes(x=n54+1, y=set, colour=set, fill=set)) + 
+  geom_boxplot(notch=T, alpha=0.3) + 
+  # geom_violin(draw_quantiles = c(0.5), alpha=0.3) + 
+  geom_beeswarm(shape=16, alpha=0.7) +
+  scale_x_log10() +
+  # scale_y_continuous(limits = c(0,1)) +
+  scale_colour_manual(values = c("#BEC1C0", "#FF7F00", "#1E3D59"), aesthetics=c("colour", "fill")) +
+  guides(colour=F, fill=F) +
+  theme_minimal() + 
+  # theme(axis.text.x = element_text(angle = 45, hjust=1, vjust=1)) +
+  # theme(axis.text.x = element_text(angle = 90, hjust=1, vjust=0.5)) +
+  guides(fill=F) +
+  # xlab("Fraction of distances <= 54 nt") +
+  # ylab(NULL) +
+  ggsave(paste0("output-figure-R7C.pdf"), width=4, height=2)
+
+
+
+
+# left_join(random1000, random54, by=c("set", "pair")) %>%
+# bind_rows(left_join(real1000, real54, by=c("set", "pair"))) %>%
+myrandom <- left_join(random1000, random54, by=c("set", "pair"))
+myrandom %<>% 
+  left_join(screenpairflip) %>% 
+  mutate(screenpairflip = replace_na(screenpairflip, 0)) %>% 
+  filter(screenpairflip==0) %>% select(-screenpairflip)
+myreal <- left_join(real1000, real54, by=c("set", "pair"))
+# myreal
+# nrow(myreal)
+# Get an even number of screen_hit and background RBP pairs
+bind_rows(slice_sample(myrandom, n=nrow(myreal)), myreal) %>%
+  mutate(n54 = replace_na(n54, 0)) %>% 
+  mutate(frac54 = n54/n1000) %>%
+  left_join(screenpairs) %>%
+  mutate(screenpair = replace_na(screenpair, 0)) %>%
+  left_join(screenpairflip) %>%
+  mutate(screenpairflip = replace_na(screenpairflip, 0)) %>%
+  # filter(frac54>=0.2) %>%
+  # filter(frac54>=0.25) %>%
+  # filter(n1000>=100) %>%
+  # filter(set=="background_resamples" & screenpair==1) %>% pull(pair) %>% cat(sep="\n")
+  filter(!(set=="background_resamples" & screenpairflip==1)) %>%   # Filter out background_resample RBP pairs that are screen hits (including inverse pairs)
+  # filter(!(set=="screen_hits")) %>%
+  # summary
+  arrange(-frac54) %>%
+  # filter(n54>=100) %>%
+  mutate(n54_100 = ifelse(n54>=100, 1, 0)) %>%
+  group_by(set) %>%
+  summarise(total=n(), n=sum(n54_100)) %>%
+  mutate(n54_frac = n/max(n)) %>%
+  # filter(frac54>=0.5) %>%
+  # filter(ntotal>=100) %>%
+  mutate(set=recode(set, "screen_hits"="Screen hits", "background_resamples"="Random pairs")) %>%
+  ggplot(aes(x=fct_rev(set), y=n54_frac, colour=set, fill=set)) + 
+  geom_bar(stat="identity") + 
+  # geom_violin(draw_quantiles = c(0.5), alpha=0.3) + 
+  # geom_beeswarm(shape=16, alpha=0.7) +
+  # scale_x_log10() +
+  # scale_y_continuous(limits = c(0,1)) +
+  scale_y_continuous(labels = scales::percent) +
+  scale_colour_manual(values = c("#BEC1C0", "#FF7F00", "#1E3D59"), aesthetics=c("colour", "fill")) +
+  guides(colour=F, fill=F) +
+  theme_minimal() + 
+  # theme(axis.text.x = element_text(angle = 45, hjust=1, vjust=1)) +
+  # theme(axis.text.x = element_text(angle = 90, hjust=1, vjust=0.5)) +
+  guides(fill=F) +
+  xlab("Pairs with distances <= 54 nt") +
+  ylab(NULL) +
+  ggsave(paste0("output-figure-R7D.pdf"), width=4, height=2)
+
+
+
+
+left_join(random54, random5) %>%
+  mutate(n5 = replace_na(n5, 0)) %>% 
+  mutate(frac5 = n5/n54) %>%
+  left_join(hcpairs) %>%
+  mutate(hc = replace_na(hc, 0)) %>%
+  # filter(frac5>=0.2) %>%
+  # filter(frac5>=0.25) %>%
+  # filter(frac5>=0.5) %>%
+  filter(frac5>=1) %>%
+  left_join(random) %>%
+  filter(mindist<1000) %>%
+  # print(n=10000)
+  group_by(pair) %>%
+  filter(mindist<=54) %>% print(n=100)
+# summarise(n=n())

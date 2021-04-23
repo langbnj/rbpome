@@ -20,11 +20,7 @@ library(ggrepel)
 
 
 
-if ((Sys.info()["nodename"] == "Ben-St-Jude.local") | (Sys.info()["nodename"] == "Benjamins-MacBook-Pro.local")) {
-  setwd("~/Documents/Projects/RBPome/Metagene/tmp")
-} else {
-  setwd("~/Documents/Projects/RBPome/Metagene")
-}
+setwd("~/Documents/Projects/RBPome/Metagene")
 
 # Real data
 clip_region <- "clip_region"
@@ -42,7 +38,8 @@ style <- "meta"
 # bincount <- 8
 bincount <- 1
 # type <- "eclip_encode"
-type <- "eclip_encode_12"
+# type <- "eclip_encode_12"
+type <- "t_lrt_ihw_nocorr_auto_w100_s5"
 species <- "human"
 
 # Minimum number of co-bound peaks for evaluating an RBP pair (previously no minimum)
@@ -57,6 +54,10 @@ min_cobound_peaks <- 1
 
 # Now there's one:
 cobinding_hc_level <- 1 # ≤54 nt (strict, cobound=1)
+
+# Require cobinding to be within the same celltype
+# cobinding_merge_celltypes <- 1 # Previously, no
+cobinding_merge_celltypes <- 0 # Now, yes
 
 # Resamples
 # num_resamples <- 3 # Fastest
@@ -160,6 +161,11 @@ str(rbp_pairs)
 #   c("PTBP1", "ZC3H8")
 # )
 # #END DEBUG
+#DEBUG
+rbp_pairs <- list(
+  c("SLBP", "SLBP")
+)
+#END DEBUG
 
 
 
@@ -433,8 +439,13 @@ for (rbp_pair in rbp_pairs) {
   rbp1_peaks <- Query(paste0("SELECT CONCAT_WS('|', chr, start, stop, strand) AS peak, ensgv, region, pos FROM ",clip_region," WHERE style='",style,"' AND type='",type,"' AND species='",species,"' AND symbol='",rbp1,"'"))
   rbp2_peaks <- Query(paste0("SELECT CONCAT_WS('|', chr, start, stop, strand) AS peak, ensgv, region, pos FROM ",clip_region," WHERE style='",style,"' AND type='",type,"' AND species='",species,"' AND symbol='",rbp2,"'"))
   
-  rbp1_rbp2_peaks <- Query(paste0("SELECT DISTINCT CONCAT_WS('|', chr, start, stop, strand) AS peak FROM ",clip_cobinding," WHERE type='",type,"' AND species='",species,"' AND symbol='",rbp1,"' AND other_symbol='",rbp2,"' AND cobound=",cobinding_hc_level))
-  rbp2_rbp1_peaks <- Query(paste0("SELECT DISTINCT CONCAT_WS('|', chr, start, stop, strand) AS peak FROM ",clip_cobinding," WHERE type='",type,"' AND species='",species,"' AND symbol='",rbp2,"' AND other_symbol='",rbp1,"' AND cobound=",cobinding_hc_level))
+  if (cobinding_merge_celltypes == 1) {
+    rbp1_rbp2_peaks <- Query(paste0("SELECT DISTINCT CONCAT_WS('|', chr, start, stop, strand) AS peak FROM ",clip_cobinding," WHERE celltype IS NULL AND type='",type,"' AND species='",species,"' AND symbol='",rbp1,"' AND other_symbol='",rbp2,"' AND cobound=",cobinding_hc_level))
+    rbp2_rbp1_peaks <- Query(paste0("SELECT DISTINCT CONCAT_WS('|', chr, start, stop, strand) AS peak FROM ",clip_cobinding," WHERE celltype IS NULL AND type='",type,"' AND species='",species,"' AND symbol='",rbp2,"' AND other_symbol='",rbp1,"' AND cobound=",cobinding_hc_level))
+  } else {
+    rbp1_rbp2_peaks <- Query(paste0("SELECT DISTINCT CONCAT_WS('|', chr, start, stop, strand) AS peak FROM ",clip_cobinding," WHERE celltype IS NOT NULL AND type='",type,"' AND species='",species,"' AND symbol='",rbp1,"' AND other_symbol='",rbp2,"' AND cobound=",cobinding_hc_level))
+    rbp2_rbp1_peaks <- Query(paste0("SELECT DISTINCT CONCAT_WS('|', chr, start, stop, strand) AS peak FROM ",clip_cobinding," WHERE celltype IS NOT NULL AND type='",type,"' AND species='",species,"' AND symbol='",rbp2,"' AND other_symbol='",rbp1,"' AND cobound=",cobinding_hc_level))
+  }
   
   str(rbp1_peaks)
   str(rbp2_peaks)

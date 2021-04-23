@@ -11,12 +11,12 @@ our $usage = "$0 [type: eclip_encode/eclip_tom/...] [motif source] [p/q-value th
 # our $usage = "$0 [type: eclip_encode/eclip_tom/...] [motif source] [p/q-value threshold] [-bgs] [-qvalue]\n\n -bgs: Run 'fimobg' and 'fimobgi' as well (with background models).\n -qvalue: Use a q-value threshold (instead of a p-value threshold)\n\nExample: $0 eclip_encode attract 0.001\nExample: $0 eclip_tom attract 0.05 -qvalue";
 ($type, $source, $thresh) = args(3);
 
-$tmpextend5 = '';
-$tmpextend5_2 = '';
-if (switch('extend5'))
+$tmpextend = '';
+$tmpextend_2 = '';
+if (switch('extend'))
 {
-	$tmpextend5 = '-extend5';
-	$tmpextend5_2 = '_extend5';
+	$tmpextend = '-extend';
+	$tmpextend_2 = '_extend';
 }
 
 $tmpthresh = $thresh;
@@ -27,19 +27,19 @@ $allmotiffile = "input/$source.meme";
 $map = 'gene';
 $intable = "clip_raw_$map";
 
-# $modelfile = '../input/gencode.human.v27.transcripts.model.txt';
-# $modelfile = '../input/tmp-peakseqs-eclip_encode-attract-model.txt';
-# $modelfile = '../input/tmp-peakseqs-eclip_tom-attract-model.txt';
-# if (switch('combinedmodel'))
-# {
-	$combinedmodelfile = "tmp-peakseqs$tmpextend5-$method-$type-$source-combined-model.txt";
-	state("Combined background:");
-	run("cat", q(cat tmp/).$combinedmodelfile.q( | perl -ne 'chomp; next if /^#/; ($a, $b) = split(/ /); $b+=0; print "$a $b "'), 1);
-	nl();
-# }
-# ~/update/rbp_motifs/bin/meme-5.0.5/src >> fasta-get-markov -norc ~/update/gencode_gff3/input/gencode.human.v27.transcripts.fa ../../../tmp2_HUGE_DELETE_ME_SOON/gencode.human.v27.transcripts.model.txt
-# ~/update/rbp_motifs/bin/meme-5.0.5/src >> fasta-get-markov -norc ../../../tmp2_HUGE_DELETE_ME_SOON/tmp-peakseqs-eclip_encode-attract.txt ../../../tmp2_HUGE_DELETE_ME_SOON/tmp-peakseqs-eclip_encode-attract-model.txt
-# ~/update/rbp_motifs/bin/meme-5.0.5/src >> fasta-get-markov -norc ../../../tmp2_HUGE_DELETE_ME_SOON/tmp-peakseqs-eclip_tom-attract.txt ../../../tmp2_HUGE_DELETE_ME_SOON/tmp-peakseqs-eclip_tom-attract-model.txt
+# # $modelfile = '../input/gencode.human.v27.transcripts.model.txt';
+# # $modelfile = '../input/tmp-peakseqs-eclip_encode-attract-model.txt';
+# # $modelfile = '../input/tmp-peakseqs-eclip_tom-attract-model.txt';
+# # if (switch('combinedmodel'))
+# # {
+# 	$combinedmodelfile = "tmp-peakseqs$tmpextend-$method-$type-$source-combined-model.txt";
+# 	state("Combined background:");
+# 	run("cat", q(cat tmp/).$combinedmodelfile.q( | perl -ne 'chomp; next if /^#/; ($a, $b) = split(/ /); $b+=0; print "$a $b "'), 1);
+# 	nl();
+# # }
+# # ~/update/rbp_motifs/bin/meme-5.0.5/src >> fasta-get-markov -norc ~/update/gencode_gff3/input/gencode.human.v27.transcripts.fa ../../../tmp2_HUGE_DELETE_ME_SOON/gencode.human.v27.transcripts.model.txt
+# # ~/update/rbp_motifs/bin/meme-5.0.5/src >> fasta-get-markov -norc ../../../tmp2_HUGE_DELETE_ME_SOON/tmp-peakseqs-eclip_encode-attract.txt ../../../tmp2_HUGE_DELETE_ME_SOON/tmp-peakseqs-eclip_encode-attract-model.txt
+# # ~/update/rbp_motifs/bin/meme-5.0.5/src >> fasta-get-markov -norc ../../../tmp2_HUGE_DELETE_ME_SOON/tmp-peakseqs-eclip_tom-attract.txt ../../../tmp2_HUGE_DELETE_ME_SOON/tmp-peakseqs-eclip_tom-attract-model.txt
 
 # start
 
@@ -77,37 +77,37 @@ while (($symbol, $celltype, $rep) = Fetch($rbpquery))
 	addme("total symbol|celltype|reps", "$symbol|$celltype|$rep");
 
 	# Set filenames
-	$seqfile = "tmp-peakseqs$tmpextend5-$method-$type-$source-$symbol-$celltype-$rep.txt";
+	$seqfile = "tmp-peakseqs$tmpextend-$method-$type-$source-$symbol-$celltype-$rep.txt";
 	if (switch('qvalue'))
 	{
 		$tmp_qval = '_qval_'.$tmpthresh;
-		$outfile = "../output/output$tmpextend5-fimo-$type-$source-$symbol-$celltype-$rep-$tmpthresh-qvalue.txt";
-		$outfilebg = "../output/output$tmpextend5-fimobg-$type-$source-$symbol-$celltype-$rep-$tmpthresh-qvalue.txt";
-		$outfilebgi = "../output/output$tmpextend5-fimobgi-$type-$source-$symbol-$celltype-$rep-$tmpthresh-qvalue.txt";
-		$tmpoutfile = "output/output$tmpextend5-fimo-$type-$source-$symbol-$celltype-$rep-$tmpthresh-qvalue.txt";
-		$tmpoutfilebg = "output/output$tmpextend5-fimobg-$type-$source-$symbol-$celltype-$rep-$tmpthresh-qvalue.txt";
-		$tmpoutfilebgi = "output/output$tmpextend5-fimobgi-$type-$source-$symbol-$celltype-$rep-$tmpthresh-qvalue.txt";
+		$outfile = "../output/output$tmpextend-fimo-$type-$source-$symbol-$celltype-$rep-$tmpthresh-qvalue.txt";
+		# $outfilebg = "../output/output$tmpextend-fimobg-$type-$source-$symbol-$celltype-$rep-$tmpthresh-qvalue.txt";
+		# $outfilebgi = "../output/output$tmpextend-fimobgi-$type-$source-$symbol-$celltype-$rep-$tmpthresh-qvalue.txt";
+		$tmpoutfile = "output/output$tmpextend-fimo-$type-$source-$symbol-$celltype-$rep-$tmpthresh-qvalue.txt";
+		# $tmpoutfilebg = "output/output$tmpextend-fimobg-$type-$source-$symbol-$celltype-$rep-$tmpthresh-qvalue.txt";
+		# $tmpoutfilebgi = "output/output$tmpextend-fimobgi-$type-$source-$symbol-$celltype-$rep-$tmpthresh-qvalue.txt";
 	}
 	else
 	{
-		$outfile = "../output/output$tmpextend5-fimo-$type-$source-$symbol-$celltype-$rep-$tmpthresh.txt";
-		$outfilebg = "../output/output$tmpextend5-fimobg-$type-$source-$symbol-$celltype-$rep-$tmpthresh.txt";
-		$outfilebgi = "../output/output$tmpextend5-fimobgi-$type-$source-$symbol-$celltype-$rep-$tmpthresh.txt";
-		$tmpoutfile = "output/output$tmpextend5-fimo-$type-$source-$symbol-$celltype-$rep-$tmpthresh.txt";
-		$tmpoutfilebg = "output/output$tmpextend5-fimobg-$type-$source-$symbol-$celltype-$rep-$tmpthresh.txt";
-		$tmpoutfilebgi = "output/output$tmpextend5-fimobgi-$type-$source-$symbol-$celltype-$rep-$tmpthresh.txt";
+		$outfile = "../output/output$tmpextend-fimo-$type-$source-$symbol-$celltype-$rep-$tmpthresh.txt";
+		# $outfilebg = "../output/output$tmpextend-fimobg-$type-$source-$symbol-$celltype-$rep-$tmpthresh.txt";
+		# $outfilebgi = "../output/output$tmpextend-fimobgi-$type-$source-$symbol-$celltype-$rep-$tmpthresh.txt";
+		$tmpoutfile = "output/output$tmpextend-fimo-$type-$source-$symbol-$celltype-$rep-$tmpthresh.txt";
+		# $tmpoutfilebg = "output/output$tmpextend-fimobg-$type-$source-$symbol-$celltype-$rep-$tmpthresh.txt";
+		# $tmpoutfilebgi = "output/output$tmpextend-fimobgi-$type-$source-$symbol-$celltype-$rep-$tmpthresh.txt";
 	}
-	$fimodir = "fimo$tmpextend5_2\_$type\_$source\_$symbol\_$celltype\_$rep$tmp_qval";
-	$fimodirbg = "fimobg$tmpextend5_2\_$type\_$source\_$symbol\_$celltype\_$rep$tmp_qval";
-	$fimodirbgi = "fimobgi$tmpextend5_2\_$type\_$source\_$symbol\_$celltype\_$rep$tmp_qval";
+	$fimodir = "fimo$tmpextend_2\_$type\_$source\_$symbol\_$celltype\_$rep$tmp_qval";
+	# $fimodirbg = "fimobg$tmpextend_2\_$type\_$source\_$symbol\_$celltype\_$rep$tmp_qval";
+	# $fimodirbgi = "fimobgi$tmpextend_2\_$type\_$source\_$symbol\_$celltype\_$rep$tmp_qval";
 	$fimofile = "$fimodir/fimo.tsv";
-	$fimofilebg = "$fimodirbg/fimo.tsv";
-	$fimofilebgi = "$fimodirbgi/fimo.tsv";
+	# $fimofilebg = "$fimodirbg/fimo.tsv";
+	# $fimofilebgi = "$fimodirbgi/fimo.tsv";
 	$motiffile = "tmp-motifs-$source-$symbol.meme";
-	# if (!switch('combinedmodel'))
-	# {
-		$modelfile = "tmp-peakseqs$tmpextend5-$method-$type-$source-$symbol-$celltype-$rep-model.txt";
-	# }
+	# # if (!switch('combinedmodel'))
+	# # {
+	# 	$modelfile = "tmp-peakseqs$tmpextend-$method-$type-$source-$symbol-$celltype-$rep-model.txt";
+	# # }
 	
 	# Skip if there were no significant peaks ("eclip_tom..." only)
 	if (!-s 'tmp/'.$seqfile)
@@ -120,10 +120,10 @@ while (($symbol, $celltype, $rep) = Fetch($rbpquery))
 	# Start
 	$i++;
 	state(" >> $i / ".Numrows($rbpquery)." >> $symbol >> $celltype >> rep$rep", 1);
-	print "   >> ";
-	# Show ACGU fractions (the 'background model')
-	run("cat", q(cat tmp/).$modelfile.q( | perl -ne 'chomp; next if /^#/; ($a, $b) = split(/ /); $b+=0; print "$a $b "'), 1);
-	print "\n";
+	# print "   >> ";
+	# # Show ACGU fractions (the 'background model')
+	# run("cat", q(cat tmp/).$modelfile.q( | perl -ne 'chomp; next if /^#/; ($a, $b) = split(/ /); $b+=0; print "$a $b "'), 1);
+	# print "\n";
 
 	# Run MEME FIMO if necessary
 	if (!-e $tmpoutfile)
@@ -134,10 +134,10 @@ while (($symbol, $celltype, $rep) = Fetch($rbpquery))
 			# p-value threshold
 			state("     >> Running FIMO >> '$tmpoutfile'", 1);
 			run("MEME FIMO (p-value threshold of $thresh)", "fimo --verbosity 1 --thresh $thresh --text --skip-matched-sequence --norc $motiffile $seqfile 2> /dev/null | perl -ne 'if (/^\(\\S+\)_\\d+\\t\\t\([^\\|]+\)\\|/) { print if (\$1 eq \$2); }' > $outfile");
-			state("     >> Running FIMO >> '$tmpoutfilebg'", 1);
-			run("MEME FIMO (p-value threshold of $thresh)", "fimo --verbosity 1 --thresh $thresh --bfile $combinedmodelfile --text --skip-matched-sequence --norc $motiffile $seqfile 2> /dev/null | perl -ne 'if (/^\(\\S+\)_\\d+\\t\\t\([^\\|]+\)\\|/) { print if (\$1 eq \$2); }' > $outfilebg");
-			state("     >> Running FIMO >> '$tmpoutfilebgi'", 1);
-			run("MEME FIMO (p-value threshold of $thresh)", "fimo --verbosity 1 --thresh $thresh --bfile $modelfile --text --skip-matched-sequence --norc $motiffile $seqfile 2> /dev/null | perl -ne 'if (/^\(\\S+\)_\\d+\\t\\t\([^\\|]+\)\\|/) { print if (\$1 eq \$2); }' > $outfilebgi");
+			# state("     >> Running FIMO >> '$tmpoutfilebg'", 1);
+			# run("MEME FIMO (p-value threshold of $thresh)", "fimo --verbosity 1 --thresh $thresh --bfile $combinedmodelfile --text --skip-matched-sequence --norc $motiffile $seqfile 2> /dev/null | perl -ne 'if (/^\(\\S+\)_\\d+\\t\\t\([^\\|]+\)\\|/) { print if (\$1 eq \$2); }' > $outfilebg");
+			# state("     >> Running FIMO >> '$tmpoutfilebgi'", 1);
+			# run("MEME FIMO (p-value threshold of $thresh)", "fimo --verbosity 1 --thresh $thresh --bfile $modelfile --text --skip-matched-sequence --norc $motiffile $seqfile 2> /dev/null | perl -ne 'if (/^\(\\S+\)_\\d+\\t\\t\([^\\|]+\)\\|/) { print if (\$1 eq \$2); }' > $outfilebgi");
 		}
 		else
 		{
@@ -158,35 +158,35 @@ while (($symbol, $celltype, $rep) = Fetch($rbpquery))
 				warn("Warning: FIMO doesn't seem to have produced any output from '$cmd' (expecting directory 'tmp/$fimodir')");
 			}
 
-			state("     >> Running FIMO >> '$tmpoutfilebg'", 1);
-			$cmd = "fimo --verbosity 1 --qv-thresh --thresh $thresh --bfile $combinedmodelfile --norc --max-stored-scores 1000000000 --oc $fimodirbg $motiffile $seqfile";
-			run("MEME FIMO (q-value threshold of $thresh)", $cmd);
-			if (-s $fimofilebg)
-			{
-				# Silly experiment because sometimes cat claims the file doesn't exist. Keeping the output directory now for diagnosis...and found out that FIMO simply doesn't produce an output directory in these cases. There are no results. All good
-				run("Move output file to final location", "cat $fimofilebg | perl -ne 'if (/^\(\\S+\)_\\d+\\t\\t\([^\\|]+\)\\|/) { print if (\$1 eq \$2); }' > $outfilebg", 1);
-				run("Remove output directory", "rm -rf $fimodirbg", 1);
-				print " >> ".chompme(`cat $outfilebg | wc -l`)." hits\n";
-			}
-			else
-			{
-				warn("Warning: FIMO doesn't seem to have produced any output from '$cmd' (expecting directory 'tmp/$fimodirbg')");
-			}
-
-			state("     >> Running FIMO >> '$tmpoutfilebgi'", 1);
-			$cmd = "fimo --verbosity 1 --qv-thresh --thresh $thresh --bfile $modelfile --norc --max-stored-scores 1000000000 --oc $fimodirbgi $motiffile $seqfile";
-			run("MEME FIMO (q-value threshold of $thresh)", $cmd);
-			if (-s $fimofilebgi)
-			{
-				# Silly experiment because sometimes cat claims the file doesn't exist. Keeping the output directory now for diagnosis...and found out that FIMO simply doesn't produce an output directory in these cases. There are no results. All good
-				run("Move output file to final location", "cat $fimofilebgi | perl -ne 'if (/^\(\\S+\)_\\d+\\t\\t\([^\\|]+\)\\|/) { print if (\$1 eq \$2); }' > $outfilebgi", 1);
-				run("Remove output directory", "rm -rf $fimodirbgi", 1);
-				print " >> ".chompme(`cat $outfilebgi | wc -l`)." hits\n";
-			}
-			else
-			{
-				warn("Warning: FIMO doesn't seem to have produced any output from '$cmd' (expecting directory 'tmp/$fimodirbgi')");
-			}
+		# 	state("     >> Running FIMO >> '$tmpoutfilebg'", 1);
+		# 	$cmd = "fimo --verbosity 1 --qv-thresh --thresh $thresh --bfile $combinedmodelfile --norc --max-stored-scores 1000000000 --oc $fimodirbg $motiffile $seqfile";
+		# 	run("MEME FIMO (q-value threshold of $thresh)", $cmd);
+		# 	if (-s $fimofilebg)
+		# 	{
+		# 		# Silly experiment because sometimes cat claims the file doesn't exist. Keeping the output directory now for diagnosis...and found out that FIMO simply doesn't produce an output directory in these cases. There are no results. All good
+		# 		run("Move output file to final location", "cat $fimofilebg | perl -ne 'if (/^\(\\S+\)_\\d+\\t\\t\([^\\|]+\)\\|/) { print if (\$1 eq \$2); }' > $outfilebg", 1);
+		# 		run("Remove output directory", "rm -rf $fimodirbg", 1);
+		# 		print " >> ".chompme(`cat $outfilebg | wc -l`)." hits\n";
+		# 	}
+		# 	else
+		# 	{
+		# 		warn("Warning: FIMO doesn't seem to have produced any output from '$cmd' (expecting directory 'tmp/$fimodirbg')");
+		# 	}
+		#
+		# 	state("     >> Running FIMO >> '$tmpoutfilebgi'", 1);
+		# 	$cmd = "fimo --verbosity 1 --qv-thresh --thresh $thresh --bfile $modelfile --norc --max-stored-scores 1000000000 --oc $fimodirbgi $motiffile $seqfile";
+		# 	run("MEME FIMO (q-value threshold of $thresh)", $cmd);
+		# 	if (-s $fimofilebgi)
+		# 	{
+		# 		# Silly experiment because sometimes cat claims the file doesn't exist. Keeping the output directory now for diagnosis...and found out that FIMO simply doesn't produce an output directory in these cases. There are no results. All good
+		# 		run("Move output file to final location", "cat $fimofilebgi | perl -ne 'if (/^\(\\S+\)_\\d+\\t\\t\([^\\|]+\)\\|/) { print if (\$1 eq \$2); }' > $outfilebgi", 1);
+		# 		run("Remove output directory", "rm -rf $fimodirbgi", 1);
+		# 		print " >> ".chompme(`cat $outfilebgi | wc -l`)." hits\n";
+		# 	}
+		# 	else
+		# 	{
+		# 		warn("Warning: FIMO doesn't seem to have produced any output from '$cmd' (expecting directory 'tmp/$fimodirbgi')");
+		# 	}
 		}
 		# Keeping these now (to stop unnecessary re-runs that won't return any motifs)
 		# run("Remove empty output file", "rm -f $outfile", 1) if (-z $outfile);
