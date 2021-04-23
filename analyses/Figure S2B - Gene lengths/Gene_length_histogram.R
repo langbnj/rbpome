@@ -44,7 +44,7 @@ rbps_both %>% nrow
 # Get target gene lengths for these 50 RBPs
 q
 
-# write_tsv(q, "~/Dropbox/RBPome_paper/#FINAL/NAR/Revision/Table R2/Table R2.tsv")
+# write_tsv(q, "Table R2.tsv")
 
 
 
